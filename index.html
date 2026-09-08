@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,11 @@
 <div id="loading">
     <div class="loading-text">INITIALIZING FUTURE...</div>
 </div>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header>
 
@@ -38,490 +44,657 @@
 
 <main>
 
-    <!-- HERO -->
 
-    <section class="hero">
+<!-- =====================================================
+     HERO / 3D
+===================================================== -->
 
-        <div id="canvas-container"></div>
+<section class="hero">
 
-        <div class="hero-content">
+    <div id="canvas-container"></div>
 
-            <div class="small-title">
-                FUTURE FASHION BANGLADESH
-            </div>
+    <div class="hero-content">
 
-            <h1>
-                WEAR<br>
-                THE<br>
-                <span>FUTURE.</span>
-            </h1>
-
-            <p>
-                A new generation of fashion.
-                Designed beyond tomorrow.
-            </p>
-
-            <a href="#collection" class="explore-btn">
-                EXPLORE COLLECTION →
-            </a>
-
+        <div class="small-title">
+            FUTURE FASHION BANGLADESH
         </div>
 
-        <div class="scroll">
-            SCROLL TO EXPLORE ↓
-        </div>
-
-    </section>
-
-
-    <!-- COLLECTION -->
-
-    <section id="collection" class="collection">
-
-        <div class="section-heading">
-
-            <span>01 / COLLECTION</span>
-
-            <h2>
-                NEW<br>
-                DIMENSION
-            </h2>
-
-        </div>
-
-
-        <!-- ALL PRODUCTS -->
-
-        <div id="allProductsView">
-
-            <div class="collection-title">
-                <span>ALL PRODUCTS</span>
-                <h3>EXPLORE<br>EVERYTHING.</h3>
-            </div>
-
-
-            <div class="products" id="productGrid">
-
-
-                <!-- MEN PRODUCT -->
-
-                <article
-                    class="product-card"
-                    data-department="men"
-                    data-category="tshirt"
-                >
-
-                    <div class="product-visual">
-
-                        <div class="product-number">01</div>
-
-                        <img
-                            src="./images/images/product1.jpg"
-                            alt="Future Oversized Tee"
-                        >
-
-                    </div>
-
-                    <div class="product-info">
-
-                        <h3>FUTURE OVERSIZED TEE</h3>
-
-                        <p>Men / T-Shirt</p>
-
-                        <div class="product-bottom">
-
-                            <strong>৳ 1,490</strong>
-
-                            <button onclick="addToCart()">
-                                ADD +
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- MEN HOODIE -->
-
-                <article
-                    class="product-card"
-                    data-department="men"
-                    data-category="hoodie"
-                >
-
-                    <div class="product-visual">
-
-                        <div class="product-number">02</div>
-
-                        <div class="fake-product">
-                            FFB
-                        </div>
-
-                    </div>
-
-                    <div class="product-info">
-
-                        <h3>CYBER HOODIE</h3>
-
-                        <p>Men / Hoodie</p>
-
-                        <div class="product-bottom">
-
-                            <strong>৳ 2,990</strong>
-
-                            <button onclick="addToCart()">
-                                ADD +
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- MEN PANTS -->
-
-                <article
-                    class="product-card"
-                    data-department="men"
-                    data-category="pants"
-                >
-
-                    <div class="product-visual">
-
-                        <div class="product-number">03</div>
-
-                        <div class="fake-product">
-                            FFB
-                        </div>
-
-                    </div>
-
-                    <div class="product-info">
-
-                        <h3>FUTURE CARGO</h3>
-
-                        <p>Men / Pants</p>
-
-                        <div class="product-bottom">
-
-                            <strong>৳ 2,490</strong>
-
-                            <button onclick="addToCart()">
-                                ADD +
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- WOMEN -->
-
-                <article
-                    class="product-card"
-                    data-department="women"
-                    data-category="dress"
-                >
-
-                    <div class="product-visual">
-
-                        <div class="product-number">04</div>
-
-                        <div class="fake-product">
-                            FFB
-                        </div>
-
-                    </div>
-
-                    <div class="product-info">
-
-                        <h3>FUTURE DRESS</h3>
-
-                        <p>Women / Dress</p>
-
-                        <div class="product-bottom">
-
-                            <strong>৳ 2,490</strong>
-
-                            <button onclick="addToCart()">
-                                ADD +
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <article
-                    class="product-card"
-                    data-department="women"
-                    data-category="top"
-                >
-
-                    <div class="product-visual">
-
-                        <div class="product-number">05</div>
-
-                        <div class="fake-product">
-                            FFB
-                        </div>
-
-                    </div>
-
-                    <div class="product-info">
-
-                        <h3>NEO FUTURE TOP</h3>
-
-                        <p>Women / Top</p>
-
-                        <div class="product-bottom">
-
-                            <strong>৳ 1,790</strong>
-
-                            <button onclick="addToCart()">
-                                ADD +
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- KIDS -->
-
-                <article
-                    class="product-card"
-                    data-department="kids"
-                    data-category="tshirt"
-                >
-
-                    <div class="product-visual">
-
-                        <div class="product-number">06</div>
-
-                        <div class="fake-product">
-                            FFB
-                        </div>
-
-                    </div>
-
-                    <div class="product-info">
-
-                        <h3>MINI FUTURE TEE</h3>
-
-                        <p>Kids / T-Shirt</p>
-
-                        <div class="product-bottom">
-
-                            <strong>৳ 990</strong>
-
-                            <button onclick="addToCart()">
-                                ADD +
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <article
-                    class="product-card"
-                    data-department="kids"
-                    data-category="hoodie"
-                >
-
-                    <div class="product-visual">
-
-                        <div class="product-number">07</div>
-
-                        <div class="fake-product">
-                            FFB
-                        </div>
-
-                    </div>
-
-                    <div class="product-info">
-
-                        <h3>KIDS CYBER HOODIE</h3>
-
-                        <p>Kids / Hoodie</p>
-
-                        <div class="product-bottom">
-
-                            <strong>৳ 1,690</strong>
-
-                            <button onclick="addToCart()">
-                                ADD +
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-            </div>
-
-
-            <!-- DEPARTMENTS -->
-
-            <div class="departments">
-
-                <div class="department-heading">
-                    <span>SELECT YOUR DIMENSION</span>
-                </div>
-
-
-                <button
-                    class="department-card men"
-                    onclick="openDepartment('men')"
-                >
-
-                    <small>01</small>
-
-                    <span>MEN</span>
-
-                    <em>EXPLORE MEN →</em>
-
-                </button>
-
-
-                <button
-                    class="department-card women"
-                    onclick="openDepartment('women')"
-                >
-
-                    <small>02</small>
-
-                    <span>WOMEN</span>
-
-                    <em>EXPLORE WOMEN →</em>
-
-                </button>
-
-
-                <button
-                    class="department-card kids"
-                    onclick="openDepartment('kids')"
-                >
-
-                    <small>03</small>
-
-                    <span>KIDS</span>
-
-                    <em>EXPLORE KIDS →</em>
-
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- DEPARTMENT VIEW -->
-
-        <div
-            id="departmentView"
-            class="department-view"
-        >
-
-            <button
-                class="back-btn"
-                onclick="showAllProducts()"
-            >
-                ← ALL PRODUCTS
-            </button>
-
-
-            <div class="department-title">
-
-                <span id="departmentNumber">
-                    01 / MEN
-                </span>
-
-                <h2 id="departmentName">
-                    MEN
-                </h2>
-
-                <p id="departmentDescription">
-                    FUTURE MENSWEAR
-                </p>
-
-            </div>
-
-
-            <!-- CATEGORY NAV -->
-
-            <div
-                id="categoryNav"
-                class="category-nav"
-            ></div>
-
-
-            <!-- FILTERED PRODUCTS -->
-
-            <div
-                id="departmentProducts"
-                class="products"
-            ></div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ABOUT -->
-
-    <section id="about" class="about">
-
-        <span>02 / ABOUT FFB</span>
-
-        <h2>
-            FASHION<br>
-            WITHOUT<br>
-            LIMITS.
-        </h2>
+        <h1>
+            WEAR<br>
+            THE<br>
+            <span>FUTURE.</span>
+        </h1>
 
         <p>
-            Future Fashion Bangladesh is built for the next generation.
-            We combine modern streetwear with futuristic design to create
-            clothing that feels different from everything around you.
+            A new generation of fashion.
+            Designed beyond tomorrow.
         </p>
 
-    </section>
+        <a href="#collection" class="explore-btn">
+            EXPLORE COLLECTION →
+        </a>
+
+    </div>
+
+    <div class="scroll">
+        SCROLL TO EXPLORE ↓
+    </div>
+
+</section>
 
 
-    <!-- CONTACT -->
 
-    <section id="contact" class="contact">
+<!-- =====================================================
+     COLLECTION
+===================================================== -->
 
-        <span>03 / CONTACT</span>
+<section id="collection" class="collection">
+
+    <div class="section-heading">
+
+        <span>01 / COLLECTION</span>
 
         <h2>
-            ENTER<br>
-            THE FUTURE.
+            NEW<br>
+            DIMENSION
         </h2>
 
-        <button class="contact-btn">
-            CONTACT FFB →
-        </button>
+    </div>
 
-    </section>
+
+
+<!-- =====================================================
+     ALL PRODUCTS
+===================================================== -->
+
+<div id="allProductsView">
+
+    <div class="collection-title">
+
+        <span>ALL PRODUCTS</span>
+
+        <h3>
+            EXPLORE<br>
+            EVERYTHING.
+        </h3>
+
+    </div>
+
+
+
+    <div class="products" id="productGrid">
+
+
+        <!-- =================================================
+             PRODUCT 01
+        ================================================== -->
+
+        <article
+            class="product-card"
+            data-department="men"
+            data-category="tshirt"
+        >
+
+            <div class="product-visual">
+
+                <div class="product-number">
+                    01
+                </div>
+
+                <img
+                    src="./images/images/product1.jpg"
+                    alt="Future Oversized Tee"
+                >
+
+            </div>
+
+            <div class="product-info">
+
+                <h3>
+                    FUTURE OVERSIZED TEE
+                </h3>
+
+                <p>
+                    Men / T-Shirt
+                </p>
+
+                <div class="product-bottom">
+
+                    <strong>
+                        ৳ 1,490
+                    </strong>
+
+                    <button onclick="addToCart()">
+                        ADD +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             PRODUCT 02
+        ================================================== -->
+
+        <article
+            class="product-card"
+            data-department="men"
+            data-category="hoodie"
+        >
+
+            <div class="product-visual">
+
+                <div class="product-number">
+                    02
+                </div>
+
+                <div class="fake-product">
+                    FFB
+                </div>
+
+            </div>
+
+            <div class="product-info">
+
+                <h3>
+                    CYBER HOODIE
+                </h3>
+
+                <p>
+                    Men / Hoodie
+                </p>
+
+                <div class="product-bottom">
+
+                    <strong>
+                        ৳ 2,990
+                    </strong>
+
+                    <button onclick="addToCart()">
+                        ADD +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             PRODUCT 03
+        ================================================== -->
+
+        <article
+            class="product-card"
+            data-department="men"
+            data-category="pants"
+        >
+
+            <div class="product-visual">
+
+                <div class="product-number">
+                    03
+                </div>
+
+                <div class="fake-product">
+                    FFB
+                </div>
+
+            </div>
+
+            <div class="product-info">
+
+                <h3>
+                    FUTURE CARGO
+                </h3>
+
+                <p>
+                    Men / Pants
+                </p>
+
+                <div class="product-bottom">
+
+                    <strong>
+                        ৳ 2,490
+                    </strong>
+
+                    <button onclick="addToCart()">
+                        ADD +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             PRODUCT 04 - WOMEN
+        ================================================== -->
+
+        <article
+            class="product-card"
+            data-department="women"
+            data-category="dress"
+        >
+
+            <div class="product-visual">
+
+                <div class="product-number">
+                    04
+                </div>
+
+                <div class="fake-product">
+                    FFB
+                </div>
+
+            </div>
+
+            <div class="product-info">
+
+                <h3>
+                    FUTURE DRESS
+                </h3>
+
+                <p>
+                    Women / Dress
+                </p>
+
+                <div class="product-bottom">
+
+                    <strong>
+                        ৳ 2,490
+                    </strong>
+
+                    <button onclick="addToCart()">
+                        ADD +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             PRODUCT 05 - WOMEN
+        ================================================== -->
+
+        <article
+            class="product-card"
+            data-department="women"
+            data-category="top"
+        >
+
+            <div class="product-visual">
+
+                <div class="product-number">
+                    05
+                </div>
+
+                <div class="fake-product">
+                    FFB
+                </div>
+
+            </div>
+
+            <div class="product-info">
+
+                <h3>
+                    NEO FUTURE TOP
+                </h3>
+
+                <p>
+                    Women / Top
+                </p>
+
+                <div class="product-bottom">
+
+                    <strong>
+                        ৳ 1,790
+                    </strong>
+
+                    <button onclick="addToCart()">
+                        ADD +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             PRODUCT 06 - KIDS
+        ================================================== -->
+
+        <article
+            class="product-card"
+            data-department="kids"
+            data-category="tshirt"
+        >
+
+            <div class="product-visual">
+
+                <div class="product-number">
+                    06
+                </div>
+
+                <div class="fake-product">
+                    FFB
+                </div>
+
+            </div>
+
+            <div class="product-info">
+
+                <h3>
+                    MINI FUTURE TEE
+                </h3>
+
+                <p>
+                    Kids / T-Shirt
+                </p>
+
+                <div class="product-bottom">
+
+                    <strong>
+                        ৳ 990
+                    </strong>
+
+                    <button onclick="addToCart()">
+                        ADD +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- =================================================
+             PRODUCT 07 - KIDS
+        ================================================== -->
+
+        <article
+            class="product-card"
+            data-department="kids"
+            data-category="hoodie"
+        >
+
+            <div class="product-visual">
+
+                <div class="product-number">
+                    07
+                </div>
+
+                <div class="fake-product">
+                    FFB
+                </div>
+
+            </div>
+
+            <div class="product-info">
+
+                <h3>
+                    KIDS CYBER HOODIE
+                </h3>
+
+                <p>
+                    Kids / Hoodie
+                </p>
+
+                <div class="product-bottom">
+
+                    <strong>
+                        ৳ 1,690
+                    </strong>
+
+                    <button onclick="addToCart()">
+                        ADD +
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+
+
+<!-- =====================================================
+     DEPARTMENTS
+===================================================== -->
+
+<div class="departments">
+
+    <div class="department-heading">
+
+        <span>
+            SELECT YOUR DIMENSION
+        </span>
+
+    </div>
+
+
+
+    <!-- MEN -->
+
+    <button
+        class="department-card men"
+        onclick="openDepartment('men')"
+    >
+
+        <small>
+            01
+        </small>
+
+        <span>
+            MEN
+        </span>
+
+        <strong>
+            COMING SOON
+        </strong>
+
+        <em>
+            EXPLORE MEN →
+        </em>
+
+    </button>
+
+
+
+    <!-- WOMEN -->
+
+    <button
+        class="department-card women"
+        onclick="openDepartment('women')"
+    >
+
+        <small>
+            02
+        </small>
+
+        <span>
+            WOMEN
+        </span>
+
+        <strong>
+            COMING SOON
+        </strong>
+
+        <em>
+            EXPLORE WOMEN →
+        </em>
+
+    </button>
+
+
+
+    <!-- KIDS -->
+
+    <button
+        class="department-card kids"
+        onclick="openDepartment('kids')"
+    >
+
+        <small>
+            03
+        </small>
+
+        <span>
+            KIDS
+        </span>
+
+        <strong>
+            COMING SOON
+        </strong>
+
+        <em>
+            EXPLORE KIDS →
+        </em>
+
+    </button>
+
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     DEPARTMENT VIEW
+===================================================== -->
+
+<div
+    id="departmentView"
+    class="department-view"
+>
+
+    <button
+        class="back-btn"
+        onclick="showAllProducts()"
+    >
+        ← ALL PRODUCTS
+    </button>
+
+
+    <div class="department-title">
+
+        <span id="departmentNumber">
+            01 / MEN
+        </span>
+
+        <h2 id="departmentName">
+            MEN
+        </h2>
+
+        <p id="departmentDescription">
+            FUTURE MENSWEAR
+        </p>
+
+    </div>
+
+
+
+    <!-- CATEGORY NAV -->
+
+    <div
+        id="categoryNav"
+        class="category-nav"
+    ></div>
+
+
+
+    <!-- FILTERED PRODUCTS -->
+
+    <div
+        id="departmentProducts"
+        class="products"
+    ></div>
+
+</div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section id="about" class="about">
+
+    <span>
+        02 / ABOUT FFB
+    </span>
+
+    <h2>
+        FASHION<br>
+        WITHOUT<br>
+        LIMITS.
+    </h2>
+
+    <p>
+        Future Fashion Bangladesh is built for the next generation.
+        We combine modern streetwear with futuristic design to create
+        clothing that feels different from everything around you.
+    </p>
+
+</section>
+
+
+
+<!-- =====================================================
+     CONTACT
+===================================================== -->
+
+<section id="contact" class="contact">
+
+    <span>
+        03 / CONTACT
+    </span>
+
+    <h2>
+        ENTER<br>
+        THE<br>
+        FUTURE.
+    </h2>
+
+    <button class="contact-btn">
+        CONTACT FFB →
+    </button>
+
+</section>
+
 
 </main>
 
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <footer>
 
@@ -536,7 +709,15 @@
 </footer>
 
 
-<script src="app.js"></script>
+
+<!-- =====================================================
+     JAVASCRIPT
+     
+     CACHE BUSTING VERSION
+     This helps GitHub Pages load the newest app.js.
+===================================================== -->
+
+<script src="app.js?v=4"></script>
 
 </body>
 </html>
