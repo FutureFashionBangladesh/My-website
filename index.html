@@ -1,9 +1,307 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-   <title>Future Fashion Bangladesh</title> </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Future Fashion Bangladesh</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #050505;
+            color: white;
+        }
+
+        nav {
+            height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            border-bottom: 1px solid #222;
+            position: sticky;
+            top: 0;
+            background: rgba(5,5,5,0.9);
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 14px;
+        }
+
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 20px;
+            background:
+                radial-gradient(circle at center, #202020 0%, #050505 55%);
+        }
+
+        .hero h1 {
+            font-size: clamp(50px, 10vw, 120px);
+            line-height: .9;
+            letter-spacing: -5px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            margin: 30px auto;
+            color: #aaa;
+            font-size: 17px;
+            max-width: 550px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            border: 1px solid white;
+            color: white;
+            text-decoration: none;
+            transition: .3s;
+        }
+
+        .btn:hover {
+            background: white;
+            color: black;
+        }
+
+        section {
+            padding: 90px 7%;
+        }
+
+        .section-title {
+            font-size: 42px;
+            margin-bottom: 45px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .product {
+            background: #111;
+            min-height: 420px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            border: 1px solid #222;
+            transition: .3s;
+        }
+
+        .product:hover {
+            transform: translateY(-8px);
+            border-color: #555;
+        }
+
+        .product-image {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            font-size: 60px;
+        }
+
+        .product h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .product p {
+            color: #888;
+        }
+
+        .about {
+            text-align: center;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .about p {
+            color: #aaa;
+            line-height: 1.8;
+            font-size: 18px;
+        }
+
+        footer {
+            padding: 40px 7%;
+            border-top: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+            color: #777;
+        }
+
+        @media (max-width: 700px) {
+            nav {
+                padding: 0 5%;
+            }
+
+            nav a {
+                margin-left: 10px;
+                font-size: 12px;
+            }
+
+            .products {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                letter-spacing: -3px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
 <body>
-    <h1>Future Fashion Bangladesh</h1>
-    <p>This is my first website.</p>
+
+<nav>
+    <div class="logo">FFB</div>
+
+    <div>
+        <a href="#collection">Collection</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </div>
+</nav>
+
+
+<section class="hero">
+
+    <div>
+        <p>FUTURE FASHION BANGLADESH</p>
+
+        <h1>
+            WEAR<br>
+            THE<br>
+            FUTURE
+        </h1>
+
+        <p>
+            Next-generation fashion designed for those who refuse to follow.
+        </p>
+
+        <a class="btn" href="#collection">
+            EXPLORE COLLECTION
+        </a>
+    </div>
+
+</section>
+
+
+<section id="collection">
+
+    <h2 class="section-title">
+        NEW / COLLECTION
+    </h2>
+
+    <div class="products">
+
+        <div class="product">
+            <div class="product-image">01</div>
+
+            <h3>Future Oversized Tee</h3>
+            <p>BDT 1,490</p>
+        </div>
+
+        <div class="product">
+            <div class="product-image">02</div>
+
+            <h3>Cyber Hoodie</h3>
+            <p>BDT 2,990</p>
+        </div>
+
+        <div class="product">
+            <div class="product-image">03</div>
+
+            <h3>Future Cargo</h3>
+            <p>BDT 2,490</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="about">
+
+    <div class="about">
+
+        <h2 class="section-title">
+            BEYOND FASHION
+        </h2>
+
+        <p>
+            Future Fashion Bangladesh is a new generation clothing brand
+            built around futuristic design, individuality and modern streetwear.
+            We don't follow trends. We create what comes next.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section id="contact">
+
+    <div class="about">
+
+        <h2 class="section-title">
+            JOIN THE FUTURE
+        </h2>
+
+        <p>
+            Follow us and discover our upcoming collections.
+        </p>
+
+        <br>
+
+        <a class="btn" href="#">
+            CONTACT US
+        </a>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <div>
+        FUTURE FASHION BANGLADESH
+    </div>
+
+    <div>
+        © 2026 FFB
+    </div>
+
+</footer>
+
 </body>
 </html>
