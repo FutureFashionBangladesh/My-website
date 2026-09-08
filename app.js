@@ -1,6 +1,12 @@
 /* =====================================================
    FUTURE FASHION BANGLADESH
-   3D + NEON TRIANGLES + MEN / WOMEN / KIDS
+   ORIGINAL 3D + NEON TRIANGLES
+   MEN / WOMEN / KIDS COLLECTION SYSTEM
+===================================================== */
+
+
+/* =====================================================
+   THREE.JS SETUP
 ===================================================== */
 
 const container = document.getElementById("canvas-container");
@@ -16,10 +22,6 @@ const camera = new THREE.PerspectiveCamera(
 
 camera.position.z = 6;
 
-
-/* =====================================================
-   RENDERER
-===================================================== */
 
 const renderer = new THREE.WebGLRenderer({
     antialias: true,
@@ -73,7 +75,7 @@ scene.add(light2);
 
 
 /* =====================================================
-   MAIN 3D OBJECT
+   MAIN FUTURISTIC 3D OBJECT
 ===================================================== */
 
 const geometry = new THREE.IcosahedronGeometry(
@@ -100,43 +102,52 @@ scene.add(object);
 
 
 /* =====================================================
-   NEON EDGES
+   COLORFUL NEON EDGES
 ===================================================== */
 
-const edgesGeometry = new THREE.EdgesGeometry(
-    geometry
-);
+const edgesGeometry =
+    new THREE.EdgesGeometry(geometry);
 
-const edgesMaterial = new THREE.LineBasicMaterial({
-    color: 0x00ffff,
-    transparent: true,
-    opacity: 0.9
-});
+const edgesMaterial =
+    new THREE.LineBasicMaterial({
+        color: 0x00ffff,
+        transparent: true,
+        opacity: 0.9
+    });
 
-const edges = new THREE.LineSegments(
-    edgesGeometry,
-    edgesMaterial
-);
+const edges =
+    new THREE.LineSegments(
+        edgesGeometry,
+        edgesMaterial
+    );
 
 object.add(edges);
 
 
-/* SECOND NEON EDGE */
+/* =====================================================
+   SECOND NEON EDGE
+===================================================== */
 
-const edgesGeometry2 = new THREE.EdgesGeometry(
-    new THREE.IcosahedronGeometry(1.73, 2)
-);
+const edgesGeometry2 =
+    new THREE.EdgesGeometry(
+        new THREE.IcosahedronGeometry(
+            1.73,
+            2
+        )
+    );
 
-const edgesMaterial2 = new THREE.LineBasicMaterial({
-    color: 0xff00ff,
-    transparent: true,
-    opacity: 0.35
-});
+const edgesMaterial2 =
+    new THREE.LineBasicMaterial({
+        color: 0xff00ff,
+        transparent: true,
+        opacity: 0.35
+    });
 
-const edges2 = new THREE.LineSegments(
-    edgesGeometry2,
-    edgesMaterial2
-);
+const edges2 =
+    new THREE.LineSegments(
+        edgesGeometry2,
+        edgesMaterial2
+    );
 
 object.add(edges2);
 
@@ -145,327 +156,60 @@ object.add(edges2);
    NEON RINGS
 ===================================================== */
 
-const ringGeometry = new THREE.TorusGeometry(
-    2.3,
-    0.015,
-    16,
-    100
-);
+const ringGeometry =
+    new THREE.TorusGeometry(
+        2.3,
+        0.015,
+        16,
+        100
+    );
 
 
-const ring1 = new THREE.Mesh(
-    ringGeometry,
-    new THREE.MeshBasicMaterial({
-        color: 0xff00ff,
-        transparent: true,
-        opacity: 0.30
-    })
-);
+const ring1 =
+    new THREE.Mesh(
+        ringGeometry,
+        new THREE.MeshBasicMaterial({
+            color: 0xff00ff,
+            transparent: true,
+            opacity: 0.30
+        })
+    );
 
-ring1.rotation.x = Math.PI / 2;
+ring1.rotation.x =
+    Math.PI / 2;
 
 scene.add(ring1);
 
 
-const ring2 = new THREE.Mesh(
-    ringGeometry,
-    new THREE.MeshBasicMaterial({
-        color: 0x00ffff,
-        transparent: true,
-        opacity: 0.25
-    })
-);
+const ring2 =
+    new THREE.Mesh(
+        ringGeometry,
+        new THREE.MeshBasicMaterial({
+            color: 0x00ffff,
+            transparent: true,
+            opacity: 0.25
+        })
+    );
 
-ring2.rotation.y = Math.PI / 2;
+ring2.rotation.y =
+    Math.PI / 2;
 
 scene.add(ring2);
 
 
 /* =====================================================
-   DEPARTMENTS
+   3D CATEGORY TRIANGLES
 ===================================================== */
 
-const departments = [
-    "MEN",
-    "WOMEN",
-    "KIDS"
+const triangleCategories = [
+    "HOODIE",
+    "SHIRT",
+    "T-SHIRT",
+    "PANJABI",
+    "CAPS",
+    "BAGS"
 ];
 
-
-/* =====================================================
-   CATEGORY DATA
-===================================================== */
-
-const departmentCategories = {
-
-    MEN: [
-        "HOODIE",
-        "SHIRT",
-        "T-SHIRT",
-        "PANJABI",
-        "CAPS",
-        "BAGS",
-        "PANTS / CARGO"
-    ],
-
-    WOMEN: [
-        "DRESS",
-        "TOP",
-        "T-SHIRT",
-        "HOODIE",
-        "KURTI",
-        "PANTS",
-        "BAGS",
-        "CAPS"
-    ],
-
-    KIDS: [
-        "T-SHIRT",
-        "SHIRT",
-        "HOODIE",
-        "PANJABI",
-        "DRESS",
-        "PANTS",
-        "CAPS",
-        "BAGS"
-    ]
-
-};
-
-
-/* =====================================================
-   DEPARTMENT CONTAINER
-===================================================== */
-
-const departmentContainer =
-    document.createElement("div");
-
-departmentContainer.id =
-    "ffb-department-container";
-
-departmentContainer.style.position =
-    "absolute";
-
-departmentContainer.style.left =
-    "50%";
-
-departmentContainer.style.bottom =
-    "8%";
-
-departmentContainer.style.transform =
-    "translateX(-50%)";
-
-departmentContainer.style.zIndex =
-    "10";
-
-departmentContainer.style.display =
-    "flex";
-
-departmentContainer.style.gap =
-    "30px";
-
-departmentContainer.style.alignItems =
-    "center";
-
-departmentContainer.style.justifyContent =
-    "center";
-
-departmentContainer.style.width =
-    "90%";
-
-departmentContainer.style.pointerEvents =
-    "auto";
-
-container.appendChild(
-    departmentContainer
-);
-
-
-/* =====================================================
-   DEPARTMENT CSS
-===================================================== */
-
-const departmentStyle =
-    document.createElement("style");
-
-departmentStyle.textContent = `
-
-#ffb-department-container {
-    font-family: Arial, sans-serif;
-}
-
-.ffb-department {
-    position: relative;
-    padding: 16px 30px;
-
-    color: #ffffff;
-
-    font-size: 20px;
-    font-weight: 800;
-
-    letter-spacing: 5px;
-
-    cursor: pointer;
-
-    text-align: center;
-
-    border: 1px solid rgba(0,255,255,0.65);
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(0,255,255,0.08),
-            rgba(255,0,255,0.08)
-        );
-
-    box-shadow:
-        0 0 12px rgba(0,255,255,0.35),
-        inset 0 0 12px rgba(255,0,255,0.12);
-
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease,
-        color 0.3s ease;
-}
-
-.ffb-department:hover {
-    transform: translateY(-6px) scale(1.05);
-
-    color: #00ffff;
-
-    box-shadow:
-        0 0 20px rgba(0,255,255,0.7),
-        0 0 35px rgba(255,0,255,0.35),
-        inset 0 0 20px rgba(0,255,255,0.15);
-}
-
-.ffb-department::before,
-.ffb-department::after {
-    content: "";
-
-    position: absolute;
-
-    width: 8px;
-    height: 8px;
-
-    border-color: #00ffff;
-    border-style: solid;
-}
-
-.ffb-department::before {
-    left: -1px;
-    top: -1px;
-
-    border-width: 2px 0 0 2px;
-}
-
-.ffb-department::after {
-    right: -1px;
-    bottom: -1px;
-
-    border-width: 0 2px 2px 0;
-}
-
-@media (max-width: 800px) {
-
-    #ffb-department-container {
-        gap: 8px;
-        width: 96%;
-    }
-
-    .ffb-department {
-        padding: 12px 14px;
-        font-size: 13px;
-        letter-spacing: 2px;
-    }
-
-}
-
-`;
-
-
-document.head.appendChild(
-    departmentStyle
-);
-
-
-/* =====================================================
-   CREATE MEN / WOMEN / KIDS
-===================================================== */
-
-departments.forEach(
-    function(department) {
-
-        const item =
-            document.createElement("div");
-
-        item.className =
-            "ffb-department";
-
-        item.textContent =
-            department;
-
-        item.dataset.department =
-            department;
-
-        departmentContainer.appendChild(
-            item
-        );
-
-
-        item.addEventListener(
-            "click",
-            function() {
-
-                showDepartment(
-                    department
-                );
-
-            }
-        );
-
-    }
-);
-
-
-/* =====================================================
-   CATEGORY TRIANGLE CONTAINER
-===================================================== */
-
-const triangleContainer =
-    document.createElement("div");
-
-triangleContainer.id =
-    "triangle-category-container";
-
-triangleContainer.style.position =
-    "absolute";
-
-triangleContainer.style.inset =
-    "0";
-
-triangleContainer.style.pointerEvents =
-    "none";
-
-triangleContainer.style.zIndex =
-    "6";
-
-container.appendChild(
-    triangleContainer
-);
-
-
-/* =====================================================
-   MEN DEFAULT CATEGORIES
-===================================================== */
-
-const triangleCategories =
-    departmentCategories.MEN;
-
-
-/* =====================================================
-   TRIANGLE POSITIONS
-===================================================== */
 
 const trianglePositions = [
 
@@ -503,100 +247,34 @@ const trianglePositions = [
 
 
 /* =====================================================
-   CREATE TRIANGLES
+   TRIANGLE CONTAINER
 ===================================================== */
 
-function createTriangles(categories) {
+const triangleContainer =
+    document.createElement("div");
 
-    triangleContainer.innerHTML = "";
+triangleContainer.id =
+    "triangle-category-container";
 
-    categories
-        .slice(0, 6)
-        .forEach(
-            function(category, index) {
+triangleContainer.style.position =
+    "absolute";
 
-                const triangle =
-                    document.createElement("div");
+triangleContainer.style.inset =
+    "0";
 
-                triangle.className =
-                    "neon-category-triangle";
+triangleContainer.style.zIndex =
+    "4";
 
-                triangle.dataset.category =
-                    category.toLowerCase();
+triangleContainer.style.pointerEvents =
+    "none";
 
-
-                triangle.innerHTML = `
-
-                    <div class="triangle-outline"></div>
-
-                    <div class="triangle-label">
-                        ${category}
-                    </div>
-
-                `;
-
-
-                triangle.style.position =
-                    "absolute";
-
-                const position =
-                    trianglePositions[index];
-
-                triangle.style.left =
-                    position.left;
-
-                triangle.style.top =
-                    position.top;
-
-                triangle.style.transform =
-                    "translate(-50%, -50%)";
-
-                triangle.style.width =
-                    "120px";
-
-                triangle.style.height =
-                    "105px";
-
-                triangle.style.pointerEvents =
-                    "auto";
-
-                triangle.style.cursor =
-                    "pointer";
-
-
-                triangleContainer.appendChild(
-                    triangle
-                );
-
-
-                triangle.addEventListener(
-                    "click",
-                    function() {
-
-                        const collection =
-                            document.getElementById(
-                                "collection"
-                            );
-
-                        if (collection) {
-
-                            collection.scrollIntoView({
-                                behavior: "smooth"
-                            });
-
-                        }
-
-                    }
-                );
-
-            }
-        );
-
-}
+container.appendChild(
+    triangleContainer
+);
 
 
 /* =====================================================
-   TRIANGLE CSS
+   TRIANGLE STYLE
 ===================================================== */
 
 const triangleStyle =
@@ -604,17 +282,29 @@ const triangleStyle =
 
 triangleStyle.textContent = `
 
+#triangle-category-container {
+    pointer-events: none;
+}
+
 .neon-category-triangle {
+
+    position: absolute;
+
+    width: 120px;
+    height: 105px;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
-    transition:
-        transform 0.35s ease;
+    pointer-events: auto;
 
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        filter 0.3s ease;
 }
 
 .neon-category-triangle:hover {
@@ -623,10 +313,14 @@ triangleStyle.textContent = `
         translate(-50%, -50%)
         scale(1.12);
 
+    filter:
+        brightness(1.35);
 }
 
 
-.triangle-outline {
+/* OUTER TRIANGLE */
+
+.triangle-shape {
 
     position: absolute;
 
@@ -649,22 +343,26 @@ triangleStyle.textContent = `
 
     filter:
         drop-shadow(
-            0 0 5px #00ffff
+            0 0 7px #00ffff
         )
         drop-shadow(
-            0 0 12px #ff00ff
+            0 0 13px #ff00ff
         );
-
 }
 
 
-.triangle-outline::after {
+/* INNER DARK TRIANGLE */
+
+.triangle-shape::after {
 
     content: "";
 
     position: absolute;
 
-    inset: 3px;
+    left: 3px;
+    right: 3px;
+    top: 3px;
+    bottom: 3px;
 
     clip-path:
         polygon(
@@ -675,15 +373,16 @@ triangleStyle.textContent = `
 
     background:
         #080808;
-
 }
 
+
+/* CATEGORY TEXT */
 
 .triangle-label {
 
     position: relative;
 
-    z-index: 3;
+    z-index: 5;
 
     margin-top: 25px;
 
@@ -697,14 +396,15 @@ triangleStyle.textContent = `
 
     text-align: center;
 
+    white-space: nowrap;
+
     text-shadow:
         0 0 6px #00ffff,
         0 0 12px #ff00ff;
-
-    white-space: nowrap;
-
 }
 
+
+/* MOBILE */
 
 @media (max-width: 800px) {
 
@@ -715,17 +415,12 @@ triangleStyle.textContent = `
 
         transform-origin:
             center;
-
     }
 
     .neon-category-triangle {
 
-        width:
-            105px !important;
-
-        height:
-            92px !important;
-
+        width: 105px;
+        height: 92px;
     }
 
 }
@@ -738,29 +433,640 @@ document.head.appendChild(
 
 
 /* =====================================================
-   INITIAL TRIANGLES
+   CREATE TRIANGLES
 ===================================================== */
 
-createTriangles(
-    triangleCategories
+triangleCategories.forEach(
+    function(category, index) {
+
+        const triangle =
+            document.createElement("div");
+
+        triangle.className =
+            "neon-category-triangle";
+
+        triangle.dataset.category =
+            category.toLowerCase();
+
+
+        triangle.innerHTML = `
+
+            <div class="triangle-shape"></div>
+
+            <div class="triangle-label">
+                ${category}
+            </div>
+
+        `;
+
+
+        triangle.style.left =
+            trianglePositions[index].left;
+
+        triangle.style.top =
+            trianglePositions[index].top;
+
+        triangle.style.transform =
+            "translate(-50%, -50%)";
+
+
+        triangleContainer.appendChild(
+            triangle
+        );
+
+
+        /* CATEGORY CLICK */
+
+        triangle.addEventListener(
+            "click",
+            function() {
+
+                const category =
+                    triangle.dataset.category;
+
+                openCategoryFrom3D(
+                    category
+                );
+
+            }
+        );
+
+    }
 );
 
 
 /* =====================================================
-   DEPARTMENT VIEW
+   DEPARTMENT DATA
 ===================================================== */
 
-function showDepartment(department) {
+const departmentData = {
 
-    const categories =
-        departmentCategories[department];
+    men: {
 
-    if (!categories) return;
+        number: "01 / MEN",
+
+        name: "MEN",
+
+        description: "FUTURE MENSWEAR",
+
+        categories: [
+            "HOODIE",
+            "SHIRT",
+            "T-SHIRT",
+            "PANJABI",
+            "CAPS",
+            "BAGS",
+            "PANTS / CARGO"
+        ]
+
+    },
+
+    women: {
+
+        number: "02 / WOMEN",
+
+        name: "WOMEN",
+
+        description: "FUTURE WOMENSWEAR",
+
+        categories: [
+            "DRESS",
+            "TOP",
+            "T-SHIRT",
+            "HOODIE",
+            "KURTI",
+            "PANTS",
+            "BAGS",
+            "CAPS"
+        ]
+
+    },
+
+    kids: {
+
+        number: "03 / KIDS",
+
+        name: "KIDS",
+
+        description: "FUTURE KIDSWEAR",
+
+        categories: [
+            "T-SHIRT",
+            "SHIRT",
+            "HOODIE",
+            "PANJABI",
+            "DRESS",
+            "PANTS",
+            "CAPS",
+            "BAGS"
+        ]
+
+    }
+
+};
 
 
-    createTriangles(
-        categories
+/* =====================================================
+   GET PRODUCT DATA
+===================================================== */
+
+function getProducts() {
+
+    const cards =
+        document.querySelectorAll(
+            "#productGrid .product-card"
+        );
+
+    return Array.from(cards);
+
+}
+
+
+/* =====================================================
+   OPEN DEPARTMENT
+===================================================== */
+
+function openDepartment(department) {
+
+    const data =
+        departmentData[department];
+
+    if (!data) return;
+
+
+    const allProductsView =
+        document.getElementById(
+            "allProductsView"
+        );
+
+    const departmentView =
+        document.getElementById(
+            "departmentView"
+        );
+
+
+    if (allProductsView)
+        allProductsView.style.display =
+            "none";
+
+
+    if (departmentView)
+        departmentView.style.display =
+            "block";
+
+
+    /* TITLE */
+
+    const number =
+        document.getElementById(
+            "departmentNumber"
+        );
+
+    const name =
+        document.getElementById(
+            "departmentName"
+        );
+
+    const description =
+        document.getElementById(
+            "departmentDescription"
+        );
+
+
+    if (number)
+        number.textContent =
+            data.number;
+
+    if (name)
+        name.textContent =
+            data.name;
+
+    if (description)
+        description.textContent =
+            data.description;
+
+
+    /* CATEGORY NAV */
+
+    createCategoryNav(
+        department,
+        data.categories
     );
+
+
+    /* SHOW PRODUCTS */
+
+    showDepartmentProducts(
+        department
+    );
+
+
+    /* SCROLL */
+
+    if (departmentView) {
+
+        setTimeout(
+            function() {
+
+                departmentView.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            },
+            50
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   CATEGORY NAVIGATION
+===================================================== */
+
+function createCategoryNav(
+    department,
+    categories
+) {
+
+    const nav =
+        document.getElementById(
+            "categoryNav"
+        );
+
+    if (!nav) return;
+
+
+    nav.innerHTML = "";
+
+
+    /* ALL BUTTON */
+
+    const allButton =
+        document.createElement("button");
+
+    allButton.textContent =
+        "ALL";
+
+    allButton.className =
+        "category-button active";
+
+
+    allButton.addEventListener(
+        "click",
+        function() {
+
+            setActiveCategory(
+                nav,
+                allButton
+            );
+
+            showDepartmentProducts(
+                department
+            );
+
+        }
+    );
+
+
+    nav.appendChild(
+        allButton
+    );
+
+
+    /* CATEGORY BUTTONS */
+
+    categories.forEach(
+        function(category) {
+
+            const button =
+                document.createElement("button");
+
+            button.textContent =
+                category;
+
+            button.className =
+                "category-button";
+
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    setActiveCategory(
+                        nav,
+                        button
+                    );
+
+                    showCategoryProducts(
+                        department,
+                        category
+                    );
+
+                }
+            );
+
+
+            nav.appendChild(
+                button
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   ACTIVE CATEGORY
+===================================================== */
+
+function setActiveCategory(
+    nav,
+    activeButton
+) {
+
+    const buttons =
+        nav.querySelectorAll(
+            ".category-button"
+        );
+
+
+    buttons.forEach(
+        function(button) {
+
+            button.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+
+    activeButton.classList.add(
+        "active"
+    );
+
+}
+
+
+/* =====================================================
+   SHOW DEPARTMENT PRODUCTS
+===================================================== */
+
+function showDepartmentProducts(
+    department
+) {
+
+    const target =
+        document.getElementById(
+            "departmentProducts"
+        );
+
+    if (!target) return;
+
+
+    target.innerHTML = "";
+
+
+    const products =
+        getProducts();
+
+
+    let found = 0;
+
+
+    products.forEach(
+        function(product) {
+
+            const productDepartment =
+                product.dataset.department;
+
+
+            if (
+                productDepartment ===
+                department
+            ) {
+
+                const clone =
+                    product.cloneNode(true);
+
+                target.appendChild(
+                    clone
+                );
+
+                found++;
+
+            }
+
+        }
+    );
+
+
+    if (found === 0) {
+
+        showNoProducts(
+            target
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   SHOW CATEGORY PRODUCTS
+===================================================== */
+
+function showCategoryProducts(
+    department,
+    category
+) {
+
+    const target =
+        document.getElementById(
+            "departmentProducts"
+        );
+
+    if (!target) return;
+
+
+    target.innerHTML = "";
+
+
+    const products =
+        getProducts();
+
+
+    let found = 0;
+
+
+    products.forEach(
+        function(product) {
+
+            const productDepartment =
+                product.dataset.department;
+
+            const productCategory =
+                product.dataset.category;
+
+
+            if (
+                productDepartment ===
+                department
+                &&
+                productCategory ===
+                category.toLowerCase()
+            ) {
+
+                const clone =
+                    product.cloneNode(true);
+
+                target.appendChild(
+                    clone
+                );
+
+                found++;
+
+            }
+
+        }
+    );
+
+
+    if (found === 0) {
+
+        showNoProducts(
+            target,
+            category
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   NO PRODUCT MESSAGE
+===================================================== */
+
+function showNoProducts(
+    target,
+    category
+) {
+
+    const message =
+        document.createElement("div");
+
+    message.className =
+        "no-products";
+
+
+    message.innerHTML = `
+
+        <span>COMING SOON</span>
+
+        <h3>
+            ${category || "NEW"} COLLECTION
+        </h3>
+
+        <p>
+            FUTURE PRODUCTS ARE BEING PREPARED.
+        </p>
+
+    `;
+
+
+    target.appendChild(
+        message
+    );
+
+}
+
+
+/* =====================================================
+   3D CATEGORY CLICK
+===================================================== */
+
+function openCategoryFrom3D(
+    category
+) {
+
+    /* Open MEN because the original
+       six 3D categories are MEN categories */
+
+    openDepartment(
+        "men"
+    );
+
+
+    setTimeout(
+        function() {
+
+            const nav =
+                document.getElementById(
+                    "categoryNav"
+                );
+
+            if (!nav) return;
+
+
+            const buttons =
+                nav.querySelectorAll(
+                    ".category-button"
+                );
+
+
+            buttons.forEach(
+                function(button) {
+
+                    if (
+                        button.textContent
+                            .toLowerCase() ===
+                        category
+                    ) {
+
+                        button.click();
+
+                    }
+
+                }
+            );
+
+        },
+        100
+    );
+
+}
+
+
+/* =====================================================
+   SHOW ALL PRODUCTS
+===================================================== */
+
+function showAllProducts() {
+
+    const allProductsView =
+        document.getElementById(
+            "allProductsView"
+        );
+
+    const departmentView =
+        document.getElementById(
+            "departmentView"
+        );
+
+
+    if (departmentView)
+        departmentView.style.display =
+            "none";
+
+
+    if (allProductsView)
+        allProductsView.style.display =
+            "block";
 
 
     const collection =
@@ -768,13 +1074,33 @@ function showDepartment(department) {
             "collection"
         );
 
+
     if (collection) {
 
         collection.scrollIntoView({
-            behavior: "smooth"
+            behavior: "smooth",
+            block: "start"
         });
 
     }
+
+}
+
+
+/* =====================================================
+   INITIAL DEPARTMENT STATE
+===================================================== */
+
+const initialDepartmentView =
+    document.getElementById(
+        "departmentView"
+    );
+
+
+if (initialDepartmentView) {
+
+    initialDepartmentView.style.display =
+        "none";
 
 }
 
@@ -784,6 +1110,7 @@ function showDepartment(department) {
 ===================================================== */
 
 let mouseX = 0;
+
 let mouseY = 0;
 
 
@@ -814,9 +1141,11 @@ document.addEventListener(
         if (!event.touches.length)
             return;
 
+
         mouseX =
             (event.touches[0].clientX /
             window.innerWidth) * 2 - 1;
+
 
         mouseY =
             (event.touches[0].clientY /
@@ -866,7 +1195,7 @@ function animate() {
     ring2.rotation.x += 0.002;
 
 
-    /* MOUSE / TOUCH */
+    /* MOUSE */
 
     object.position.x =
         2 + mouseX * 0.35;
@@ -875,7 +1204,7 @@ function animate() {
         -mouseY * 0.35;
 
 
-    /* COLOR ANIMATION */
+    /* COLOR */
 
     const time =
         Date.now() * 0.0002;
