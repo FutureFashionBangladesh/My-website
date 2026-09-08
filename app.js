@@ -1,11 +1,11 @@
 /* =====================================================
    FUTURE FASHION BANGLADESH
-   COLLECTION + DEPARTMENT + CATEGORY SYSTEM
+   ORIGINAL 3D + NEON TRIANGLE CATEGORY VERSION
 ===================================================== */
 
 
 /* =====================================================
-   THREE.JS
+   THREE.JS SETUP
 ===================================================== */
 
 const container =
@@ -46,7 +46,9 @@ container.appendChild(
 );
 
 
-/* LIGHTS */
+/* =====================================================
+   LIGHTS
+===================================================== */
 
 const ambientLight =
     new THREE.AmbientLight(
@@ -89,7 +91,9 @@ light2.position.set(
 scene.add(light2);
 
 
-/* MAIN 3D OBJECT */
+/* =====================================================
+   MAIN FUTURISTIC 3D OBJECT
+===================================================== */
 
 const geometry =
     new THREE.IcosahedronGeometry(
@@ -121,57 +125,60 @@ object.position.set(
 scene.add(object);
 
 
-/* WIREFRAME */
+/* =====================================================
+   COLORFUL NEON EDGES
+===================================================== */
 
-const wireGeometry =
-    new THREE.IcosahedronGeometry(
-        1.78,
-        2
+const edgesGeometry =
+    new THREE.EdgesGeometry(
+        geometry
     );
 
-const wireMaterial =
-    new THREE.MeshBasicMaterial({
+const edgesMaterial =
+    new THREE.LineBasicMaterial({
         color: 0x00ffff,
-        wireframe: true,
         transparent: true,
-        opacity: 0.45
+        opacity: 0.9
     });
 
-const wire =
-    new THREE.Mesh(
-        wireGeometry,
-        wireMaterial
+const edges =
+    new THREE.LineSegments(
+        edgesGeometry,
+        edgesMaterial
     );
 
-object.add(wire);
+object.add(edges);
 
 
-/* SECOND NEON WIREFRAME */
+/* SECOND NEON EDGE */
 
-const wireGeometry2 =
-    new THREE.IcosahedronGeometry(
-        1.86,
-        1
+const edgesGeometry2 =
+    new THREE.EdgesGeometry(
+        new THREE.IcosahedronGeometry(
+            1.73,
+            2
+        )
     );
 
-const wireMaterial2 =
-    new THREE.MeshBasicMaterial({
+const edgesMaterial2 =
+    new THREE.LineBasicMaterial({
         color: 0xff00ff,
-        wireframe: true,
         transparent: true,
-        opacity: 0.2
+        opacity: 0.35
     });
 
-const wire2 =
-    new THREE.Mesh(
-        wireGeometry2,
-        wireMaterial2
+const edges2 =
+    new THREE.LineSegments(
+        edgesGeometry2,
+        edgesMaterial2
     );
 
-object.add(wire2);
+object.add(edges2);
 
 
-/* RINGS */
+/* =====================================================
+   NEON RINGS
+===================================================== */
 
 const ringGeometry =
     new THREE.TorusGeometry(
@@ -181,17 +188,15 @@ const ringGeometry =
         100
     );
 
-const ringMaterial =
-    new THREE.MeshBasicMaterial({
-        color: 0x00ffff,
-        transparent: true,
-        opacity: 0.25
-    });
 
 const ring1 =
     new THREE.Mesh(
         ringGeometry,
-        ringMaterial
+        new THREE.MeshBasicMaterial({
+            color: 0xff00ff,
+            transparent: true,
+            opacity: 0.30
+        })
     );
 
 ring1.rotation.x =
@@ -204,9 +209,9 @@ const ring2 =
     new THREE.Mesh(
         ringGeometry,
         new THREE.MeshBasicMaterial({
-            color: 0xff00ff,
+            color: 0x00ffff,
             transparent: true,
-            opacity: 0.2
+            opacity: 0.25
         })
     );
 
@@ -216,10 +221,287 @@ ring2.rotation.y =
 scene.add(ring2);
 
 
-/* MOUSE */
+/* =====================================================
+   TRIANGLE CATEGORY SYSTEM
+===================================================== */
+
+const triangleCategories = [
+    "HOODIE",
+    "SHIRT",
+    "T-SHIRT",
+    "PANJABI",
+    "CAPS",
+    "BAGS"
+];
+
+
+/*
+   IMPORTANT:
+   These are HTML triangles over the 3D scene.
+   NO WHITE DOTS.
+*/
+
+const triangleContainer =
+    document.createElement("div");
+
+triangleContainer.id =
+    "triangle-category-container";
+
+triangleContainer.style.position =
+    "absolute";
+
+triangleContainer.style.inset =
+    "0";
+
+triangleContainer.style.pointerEvents =
+    "none";
+
+triangleContainer.style.zIndex =
+    "5";
+
+container.appendChild(
+    triangleContainer
+);
+
+
+/* =====================================================
+   CREATE SIX TRIANGLES
+===================================================== */
+
+const trianglePositions = [
+
+    {
+        left: "61%",
+        top: "18%"
+    },
+
+    {
+        left: "76%",
+        top: "32%"
+    },
+
+    {
+        left: "70%",
+        top: "64%"
+    },
+
+    {
+        left: "51%",
+        top: "70%"
+    },
+
+    {
+        left: "43%",
+        top: "39%"
+    },
+
+    {
+        left: "54%",
+        top: "14%"
+    }
+
+];
+
+
+triangleCategories.forEach(
+    function(category, index) {
+
+        const triangle =
+            document.createElement("div");
+
+        triangle.className =
+            "neon-category-triangle";
+
+
+        triangle.dataset.category =
+            category.toLowerCase();
+
+
+        triangle.innerHTML = `
+            <div class="triangle-shape"></div>
+
+            <div class="triangle-label">
+                ${category}
+            </div>
+        `;
+
+
+        triangle.style.position =
+            "absolute";
+
+        triangle.style.left =
+            trianglePositions[index].left;
+
+        triangle.style.top =
+            trianglePositions[index].top;
+
+        triangle.style.transform =
+            "translate(-50%, -50%)";
+
+
+        triangle.style.width =
+            "120px";
+
+        triangle.style.height =
+            "105px";
+
+
+        triangle.style.pointerEvents =
+            "auto";
+
+        triangle.style.cursor =
+            "pointer";
+
+
+        triangleContainer.appendChild(
+            triangle
+        );
+
+
+        /* CLICK */
+
+        triangle.addEventListener(
+            "click",
+            function() {
+
+                const collection =
+                    document.getElementById(
+                        "collection"
+                    );
+
+                if (collection) {
+
+                    collection.scrollIntoView({
+                        behavior: "smooth"
+                    });
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   TRIANGLE CSS
+===================================================== */
+
+const triangleStyle =
+    document.createElement("style");
+
+triangleStyle.textContent = `
+
+    .neon-category-triangle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.35s ease;
+    }
+
+    .neon-category-triangle:hover {
+        transform:
+            translate(-50%, -50%)
+            scale(1.12);
+    }
+
+    .triangle-shape {
+        position: absolute;
+        inset: 0;
+
+        clip-path:
+            polygon(
+                50% 0%,
+                100% 100%,
+                0% 100%
+            );
+
+        background:
+            linear-gradient(
+                135deg,
+                rgba(0,255,255,0.18),
+                rgba(255,0,255,0.12)
+            );
+
+        border: none;
+
+        filter:
+            drop-shadow(
+                0 0 8px
+                rgba(0,255,255,0.65)
+            );
+    }
+
+    .triangle-shape::after {
+        content: "";
+
+        position: absolute;
+
+        inset: 3px;
+
+        clip-path:
+            polygon(
+                50% 0%,
+                100% 100%,
+                0% 100%
+            );
+
+        background: #080808;
+    }
+
+    .triangle-label {
+        position: relative;
+
+        z-index: 3;
+
+        margin-top: 25px;
+
+        color: #ffffff;
+
+        font-size: 9px;
+
+        font-weight: 700;
+
+        letter-spacing: 2px;
+
+        text-align: center;
+
+        text-shadow:
+            0 0 6px #00ffff,
+            0 0 12px #ff00ff;
+
+        white-space: nowrap;
+    }
+
+    @media (max-width: 800px) {
+
+        #triangle-category-container {
+            transform: scale(0.72);
+            transform-origin: center;
+        }
+
+        .neon-category-triangle {
+            width: 105px !important;
+            height: 92px !important;
+        }
+
+    }
+
+`;
+
+document.head.appendChild(
+    triangleStyle
+);
+
+
+/* =====================================================
+   MOUSE MOVEMENT
+===================================================== */
 
 let mouseX = 0;
 let mouseY = 0;
+
 
 document.addEventListener(
     "mousemove",
@@ -237,7 +519,9 @@ document.addEventListener(
 );
 
 
-/* TOUCH */
+/* =====================================================
+   TOUCH MOVEMENT
+===================================================== */
 
 document.addEventListener(
     "touchmove",
@@ -255,11 +539,15 @@ document.addEventListener(
             window.innerHeight) * 2 - 1;
 
     },
-    { passive: true }
+    {
+        passive: true
+    }
 );
 
 
-/* ANIMATION */
+/* =====================================================
+   ANIMATION
+===================================================== */
 
 function animate() {
 
@@ -267,18 +555,34 @@ function animate() {
         animate
     );
 
+
+    /* MAIN OBJECT */
+
     object.rotation.x += 0.002;
+
     object.rotation.y += 0.004;
 
-    wire.rotation.x -= 0.001;
-    wire.rotation.y -= 0.002;
 
-    wire2.rotation.x += 0.001;
-    wire2.rotation.y += 0.0015;
+    /* NEON EDGES */
+
+    edges.rotation.x -= 0.001;
+
+    edges.rotation.y -= 0.002;
+
+
+    edges2.rotation.x += 0.001;
+
+    edges2.rotation.y += 0.0015;
+
+
+    /* RINGS */
 
     ring1.rotation.z += 0.003;
 
     ring2.rotation.x += 0.002;
+
+
+    /* MOUSE / TOUCH */
 
     object.position.x =
         2 + mouseX * 0.35;
@@ -286,16 +590,40 @@ function animate() {
     object.position.y =
         -mouseY * 0.35;
 
+
+    /* COLOR ANIMATION */
+
+    const time =
+        Date.now() * 0.0002;
+
+
+    edgesMaterial.color.setHSL(
+        (time * 0.35) % 1,
+        1,
+        0.55
+    );
+
+
+    edgesMaterial2.color.setHSL(
+        (time * 0.35 + 0.5) % 1,
+        1,
+        0.55
+    );
+
+
     renderer.render(
         scene,
         camera
     );
+
 }
 
 animate();
 
 
-/* RESPONSIVE 3D */
+/* =====================================================
+   RESPONSIVE
+===================================================== */
 
 window.addEventListener(
     "resize",
@@ -307,10 +635,12 @@ window.addEventListener(
         const height =
             container.clientHeight;
 
+
         camera.aspect =
             width / height;
 
         camera.updateProjectionMatrix();
+
 
         renderer.setSize(
             width,
@@ -322,362 +652,28 @@ window.addEventListener(
 
 
 /* =====================================================
-   COLLECTION SYSTEM
-===================================================== */
-
-
-/* CATEGORY LIST */
-
-const categories = {
-
-    men: [
-        ["all", "ALL MEN"],
-        ["hoodie", "HOODIE"],
-        ["shirt", "SHIRT"],
-        ["tshirt", "T-SHIRT"],
-        ["panjabi", "PANJABI"],
-        ["caps", "CAPS"],
-        ["bags", "BAGS"],
-        ["pants", "PANTS / CARGO"]
-    ],
-
-    women: [
-        ["all", "ALL WOMEN"],
-        ["dress", "DRESS"],
-        ["top", "TOP"],
-        ["tshirt", "T-SHIRT"],
-        ["hoodie", "HOODIE"],
-        ["kurti", "KURTI"],
-        ["pants", "PANTS"],
-        ["bags", "BAGS"],
-        ["caps", "CAPS"]
-    ],
-
-    kids: [
-        ["all", "ALL KIDS"],
-        ["tshirt", "T-SHIRT"],
-        ["shirt", "SHIRT"],
-        ["hoodie", "HOODIE"],
-        ["panjabi", "PANJABI"],
-        ["dress", "DRESS"],
-        ["pants", "PANTS"],
-        ["caps", "CAPS"],
-        ["bags", "BAGS"]
-    ]
-
-};
-
-
-/* DEPARTMENT NAMES */
-
-const departmentInfo = {
-
-    men: {
-        number: "01 / MEN",
-        title: "MEN",
-        description: "FUTURE MENSWEAR"
-    },
-
-    women: {
-        number: "02 / WOMEN",
-        title: "WOMEN",
-        description: "FUTURE WOMENSWEAR"
-    },
-
-    kids: {
-        number: "03 / KIDS",
-        title: "KIDS",
-        description: "FUTURE KIDSWEAR"
-    }
-
-};
-
-
-/* OPEN DEPARTMENT */
-
-function openDepartment(
-    department
-) {
-
-    const allView =
-        document.getElementById(
-            "allProductsView"
-        );
-
-    const departmentView =
-        document.getElementById(
-            "departmentView"
-        );
-
-    allView.style.display =
-        "none";
-
-    departmentView.style.display =
-        "block";
-
-
-    /* TITLE */
-
-    document.getElementById(
-        "departmentNumber"
-    ).textContent =
-        departmentInfo[department].number;
-
-    document.getElementById(
-        "departmentName"
-    ).textContent =
-        departmentInfo[department].title;
-
-    document.getElementById(
-        "departmentDescription"
-    ).textContent =
-        departmentInfo[department].description;
-
-
-    /* CATEGORY NAV */
-
-    const nav =
-        document.getElementById(
-            "categoryNav"
-        );
-
-    nav.innerHTML = "";
-
-
-    categories[department].forEach(
-        function(category, index) {
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-            button.className =
-                "category-btn";
-
-            if (index === 0) {
-                button.classList.add(
-                    "active"
-                );
-            }
-
-            button.textContent =
-                category[1];
-
-            button.onclick =
-                function() {
-
-                    filterProducts(
-                        department,
-                        category[0],
-                        button
-                    );
-
-                };
-
-            nav.appendChild(
-                button
-            );
-
-        }
-    );
-
-
-    /* SHOW ALL DEPARTMENT PRODUCTS */
-
-    filterProducts(
-        department,
-        "all",
-        nav.querySelector(
-            ".category-btn"
-        )
-    );
-
-
-    /* SCROLL */
-
-    setTimeout(
-        function() {
-
-            departmentView.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-        },
-        100
-    );
-
-}
-
-
-/* FILTER PRODUCTS */
-
-function filterProducts(
-    department,
-    category,
-    clickedButton
-) {
-
-    const sourceProducts =
-        document.querySelectorAll(
-            "#productGrid .product-card"
-        );
-
-    const destination =
-        document.getElementById(
-            "departmentProducts"
-        );
-
-    destination.innerHTML = "";
-
-
-    sourceProducts.forEach(
-        function(card) {
-
-            const cardDepartment =
-                card.dataset.department;
-
-            const cardCategory =
-                card.dataset.category;
-
-
-            if (
-                cardDepartment === department &&
-                (
-                    category === "all" ||
-                    cardCategory === category
-                )
-            ) {
-
-                const clone =
-                    card.cloneNode(true);
-
-                destination.appendChild(
-                    clone
-                );
-
-            }
-
-        }
-    );
-
-
-    /* ACTIVE CATEGORY */
-
-    document.querySelectorAll(
-        ".category-btn"
-    ).forEach(
-        function(button) {
-
-            button.classList.remove(
-                "active"
-            );
-
-        }
-    );
-
-    if (clickedButton) {
-
-        clickedButton.classList.add(
-            "active"
-        );
-
-    }
-
-
-    /* EMPTY MESSAGE */
-
-    if (
-        destination.children.length === 0
-    ) {
-
-        destination.innerHTML = `
-            <div style="
-                grid-column: 1 / -1;
-                padding: 80px 20px;
-                text-align: center;
-                color: #555;
-                letter-spacing: 3px;
-                border: 1px solid #222;
-            ">
-                NO PRODUCTS AVAILABLE YET
-            </div>
-        `;
-
-    }
-
-}
-
-
-/* SHOW ALL PRODUCTS */
-
-function showAllProducts() {
-
-    document.getElementById(
-        "departmentView"
-    ).style.display =
-        "none";
-
-    document.getElementById(
-        "allProductsView"
-    ).style.display =
-        "block";
-
-    document.getElementById(
-        "allProductsView"
-    ).scrollIntoView({
-        behavior: "smooth"
-    });
-
-}
-
-
-/* =====================================================
    CART
 ===================================================== */
 
 let cartCount = 0;
 
+
 function addToCart() {
 
     cartCount++;
+
 
     const cart =
         document.getElementById(
             "cartCount"
         );
 
-    cart.textContent =
-        cartCount;
 
-}
+    if (cart) {
 
-
-/* =====================================================
-   LOADING
-===================================================== */
-
-window.addEventListener(
-    "load",
-    function() {
-
-        setTimeout(
-            function() {
-
-                const loading =
-                    document.getElementById(
-                        "loading"
-                    );
-
-                if (loading) {
-                    loading.style.display =
-                        "none";
-                }
-
-            },
-            1800
-        );
+        cart.textContent =
+            cartCount;
 
     }
-);
+
+}
