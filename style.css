@@ -1,1 +1,375 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #050505;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+}
+
+body:before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index: 999;
+}
+
+#loading {
+    position: fixed;
+    inset: 0;
+    background: #050505;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: loading 2s forwards;
+}
+
+.loading-text {
+    font-size: 13px;
+    letter-spacing: 5px;
+}
+
+@keyframes loading {
+    0%, 70% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    padding: 0 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    background: rgba(5,5,5,.65);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: 5px;
+}
+
+.logo span {
+    opacity: .4;
+}
+
+nav a {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin: 0 15px;
+    transition: .3s;
+}
+
+nav a:hover {
+    color: white;
+}
+
+.cart-btn {
+    background: transparent;
+    border: 1px solid #555;
+    color: white;
+    padding: 10px 16px;
+    letter-spacing: 2px;
+    font-size: 10px;
+}
+
+#cartCount {
+    margin-left: 6px;
+}
+
+.hero {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+#canvas-container {
+    position: absolute;
+    inset: 0;
+}
+
+#canvas-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 5;
+    width: 55%;
+    padding-left: 8%;
+    pointer-events: none;
+}
+
+.small-title {
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: #999;
+    margin-bottom: 30px;
+}
+
+.hero h1 {
+    font-size: clamp(65px, 10vw, 145px);
+    line-height: .78;
+    letter-spacing: -8px;
+    font-weight: 900;
+}
+
+.hero h1 span {
+    color: transparent;
+    -webkit-text-stroke: 1px white;
+}
+
+.hero p {
+    color: #888;
+    max-width: 420px;
+    margin: 35px 0;
+    line-height: 1.7;
+}
+
+.explore-btn {
+    display: inline-block;
+    pointer-events: auto;
+    color: white;
+    text-decoration: none;
+    border: 1px solid white;
+    padding: 17px 25px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    transition: .3s;
+}
+
+.explore-btn:hover {
+    background: white;
+    color: black;
+}
+
+.scroll {
+    position: absolute;
+    bottom: 35px;
+    left: 8%;
+    color: #666;
+    font-size: 9px;
+    letter-spacing: 4px;
+}
+
+.collection {
+    padding: 150px 7%;
+    background: #080808;
+}
+
+.section-heading span,
+.about span,
+.contact span {
+    color: #777;
+    font-size: 10px;
+    letter-spacing: 4px;
+}
+
+.section-heading h2 {
+    font-size: clamp(50px, 8vw, 110px);
+    line-height: .85;
+    margin: 25px 0 80px;
+    letter-spacing: -5px;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.product-card {
+    background: #101010;
+    border: 1px solid #222;
+    transition: .5s;
+}
+
+.product-card:hover {
+    transform: translateY(-12px);
+    border-color: #666;
+}
+
+.product-visual {
+    height: 430px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background:
+        radial-gradient(circle, #292929 0%, #0c0c0c 65%);
+}
+
+.product-number {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #555;
+    font-size: 12px;
+}
+
+.fake-product {
+    width: 180px;
+    height: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #555;
+    transform: perspective(500px) rotateY(-18deg);
+    font-size: 28px;
+    letter-spacing: 8px;
+    box-shadow: 0 0 60px rgba(255,255,255,.08);
+    transition: .5s;
+}
+
+.product-card:hover .fake-product {
+    transform: perspective(500px) rotateY(18deg) scale(1.08);
+}
+
+.product-info {
+    padding: 25px;
+}
+
+.product-info h3 {
+    font-size: 15px;
+    letter-spacing: 2px;
+}
+
+.product-info p {
+    color: #666;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+.product-bottom {
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-bottom strong {
+    font-size: 15px;
+}
+
+.product-bottom button {
+    background: white;
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.about {
+    padding: 180px 10%;
+    text-align: center;
+}
+
+.about h2,
+.contact h2 {
+    font-size: clamp(55px, 9vw, 130px);
+    line-height: .8;
+    letter-spacing: -6px;
+    margin: 35px 0;
+}
+
+.about p {
+    max-width: 650px;
+    margin: auto;
+    color: #777;
+    line-height: 1.9;
+}
+
+.contact {
+    padding: 150px 7%;
+    text-align: center;
+    background: #0b0b0b;
+}
+
+.contact-btn {
+    background: white;
+    color: black;
+    border: none;
+    padding: 18px 35px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+footer {
+    padding: 35px 7%;
+    border-top: 1px solid #222;
+    display: flex;
+    justify-content: space-between;
+    color: #555;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+@media (max-width: 800px) {
+
+    header {
+        padding: 0 5%;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .hero-content {
+        width: 100%;
+        padding: 0 7%;
+    }
+
+    .hero h1 {
+        font-size: 65px;
+        letter-spacing: -5px;
+    }
+
+    .products {
+        grid-template-columns: 1fr;
+    }
+
+    .product-visual {
+        height: 400px;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
