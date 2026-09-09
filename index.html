@@ -2,21 +2,43 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Future Fashion Bangladesh</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="stylesheet" href="style.css">
+    <title>
+        Future Fashion Bangladesh
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
 </head>
+
 
 <body>
 
+
+<!-- =====================================================
+     LOADING
+===================================================== -->
+
 <div id="loading">
-    <div class="loading-text">INITIALIZING FUTURE...</div>
+
+    <div class="loading-text">
+        INITIALIZING FUTURE...
+    </div>
+
 </div>
+
 
 
 <!-- =====================================================
@@ -29,29 +51,57 @@
         FFB<span>.</span>
     </div>
 
+
     <nav>
-        <a href="#collection">COLLECTION</a>
-        <a href="#about">ABOUT</a>
-        <a href="#contact">CONTACT</a>
+
+        <a href="#collection">
+            COLLECTION
+        </a>
+
+        <a href="#about">
+            ABOUT
+        </a>
+
+        <a href="#contact">
+            CONTACT
+        </a>
+
     </nav>
 
-    <button class="cart-btn">
-        CART <span id="cartCount">0</span>
+
+    <button
+        class="cart-btn"
+        onclick="openCart()"
+    >
+
+        CART
+
+        <span id="cartCount">
+            0
+        </span>
+
     </button>
 
 </header>
 
 
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
 <main>
 
 
+
 <!-- =====================================================
-     HERO / 3D
+     HERO
 ===================================================== -->
 
 <section class="hero">
 
     <div id="canvas-container"></div>
+
 
     <div class="hero-content">
 
@@ -59,25 +109,44 @@
             FUTURE FASHION BANGLADESH
         </div>
 
+
         <h1>
+
             WEAR<br>
+
             THE<br>
-            <span>FUTURE.</span>
+
+            <span>
+                FUTURE.
+            </span>
+
         </h1>
 
+
         <p>
+
             A new generation of fashion.
             Designed beyond tomorrow.
+
         </p>
 
-        <a href="#collection" class="explore-btn">
+
+        <a
+            href="#collection"
+            class="explore-btn"
+        >
+
             EXPLORE COLLECTION →
+
         </a>
 
     </div>
 
+
     <div class="scroll">
+
         SCROLL TO EXPLORE ↓
+
     </div>
 
 </section>
@@ -88,15 +157,24 @@
      COLLECTION
 ===================================================== -->
 
-<section id="collection" class="collection">
+<section
+    id="collection"
+    class="collection"
+>
+
 
     <div class="section-heading">
 
-        <span>01 / COLLECTION</span>
+        <span>
+            01 / COLLECTION
+        </span>
+
 
         <h2>
+
             NEW<br>
             DIMENSION
+
         </h2>
 
     </div>
@@ -104,35 +182,175 @@
 
 
 <!-- =====================================================
-     ALL PRODUCTS
+     ALL PRODUCTS VIEW
 ===================================================== -->
 
 <div id="allProductsView">
 
+
     <div class="collection-title">
 
-        <span>ALL PRODUCTS</span>
+        <span>
+            ALL PRODUCTS
+        </span>
+
 
         <h3>
+
             EXPLORE<br>
             EVERYTHING.
+
         </h3>
 
     </div>
 
 
 
-    <div class="products" id="productGrid">
+    <!-- ALL PRODUCT TOOLBAR -->
+
+    <div class="listing-toolbar">
+
+        <div class="listing-count">
+
+            <span id="allProductCount">
+                0
+            </span>
+
+            PRODUCTS
+
+        </div>
 
 
-        <!-- =================================================
-             PRODUCT 01
-        ================================================== -->
+        <div class="listing-controls">
+
+
+            <select id="allColorFilter">
+
+                <option value="all">
+                    COLOR: ALL
+                </option>
+
+                <option value="black">
+                    BLACK
+                </option>
+
+                <option value="white">
+                    WHITE
+                </option>
+
+                <option value="grey">
+                    GREY
+                </option>
+
+                <option value="blue">
+                    BLUE
+                </option>
+
+                <option value="red">
+                    RED
+                </option>
+
+            </select>
+
+
+
+            <select id="allSizeFilter">
+
+                <option value="all">
+                    SIZE: ALL
+                </option>
+
+                <option value="s">
+                    S
+                </option>
+
+                <option value="m">
+                    M
+                </option>
+
+                <option value="l">
+                    L
+                </option>
+
+                <option value="xl">
+                    XL
+                </option>
+
+                <option value="xxl">
+                    XXL
+                </option>
+
+            </select>
+
+
+
+            <select id="allPriceFilter">
+
+                <option value="all">
+                    PRICE: ALL
+                </option>
+
+                <option value="0-1500">
+                    ৳ 0 — 1,500
+                </option>
+
+                <option value="1500-2500">
+                    ৳ 1,500 — 2,500
+                </option>
+
+                <option value="2500-5000">
+                    ৳ 2,500 — 5,000
+                </option>
+
+                <option value="5000+">
+                    ৳ 5,000+
+                </option>
+
+            </select>
+
+
+
+            <select id="allSortProducts">
+
+                <option value="default">
+                    SORT: DEFAULT
+                </option>
+
+                <option value="low">
+                    PRICE: LOW → HIGH
+                </option>
+
+                <option value="high">
+                    PRICE: HIGH → LOW
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- PRODUCT GRID -->
+
+    <div
+        class="products"
+        id="productGrid"
+    >
+
+
+
+        <!-- PRODUCT 01 -->
 
         <article
             class="product-card"
             data-department="men"
             data-category="tshirt"
+            data-price="1490"
+            data-colors="black,white,grey"
+            data-sizes="s,m,l,xl"
+            data-stock="12"
         >
 
             <div class="product-visual">
@@ -141,6 +359,7 @@
                     01
                 </div>
 
+
                 <img
                     src="./images/images/product1.jpg"
                     alt="Future Oversized Tee"
@@ -148,15 +367,37 @@
 
             </div>
 
+
             <div class="product-info">
 
                 <h3>
                     FUTURE OVERSIZED TEE
                 </h3>
 
+
                 <p>
                     Men / T-Shirt
                 </p>
+
+
+                <div class="product-meta">
+
+                    <span>
+                        COLOR:
+                        BLACK / WHITE / GREY
+                    </span>
+
+                    <span>
+                        SIZE:
+                        S / M / L / XL
+                    </span>
+
+                    <span class="stock">
+                        STOCK: 12
+                    </span>
+
+                </div>
+
 
                 <div class="product-bottom">
 
@@ -164,9 +405,22 @@
                         ৳ 1,490
                     </strong>
 
-                    <button onclick="addToCart()">
-                        ADD +
-                    </button>
+
+                    <div class="product-actions">
+
+                        <button
+                            onclick="addToCart()"
+                        >
+                            ADD +
+                        </button>
+
+                        <button
+                            onclick="buyNow()"
+                        >
+                            BUY
+                        </button>
+
+                    </div>
 
                 </div>
 
@@ -176,14 +430,16 @@
 
 
 
-        <!-- =================================================
-             PRODUCT 02
-        ================================================== -->
+        <!-- PRODUCT 02 -->
 
         <article
             class="product-card"
             data-department="men"
             data-category="hoodie"
+            data-price="2990"
+            data-colors="black,grey"
+            data-sizes="m,l,xl,xxl"
+            data-stock="8"
         >
 
             <div class="product-visual">
@@ -192,11 +448,13 @@
                     02
                 </div>
 
+
                 <div class="fake-product">
                     FFB
                 </div>
 
             </div>
+
 
             <div class="product-info">
 
@@ -204,9 +462,30 @@
                     CYBER HOODIE
                 </h3>
 
+
                 <p>
                     Men / Hoodie
                 </p>
+
+
+                <div class="product-meta">
+
+                    <span>
+                        COLOR:
+                        BLACK / GREY
+                    </span>
+
+                    <span>
+                        SIZE:
+                        M / L / XL / XXL
+                    </span>
+
+                    <span class="stock">
+                        STOCK: 8
+                    </span>
+
+                </div>
+
 
                 <div class="product-bottom">
 
@@ -214,9 +493,22 @@
                         ৳ 2,990
                     </strong>
 
-                    <button onclick="addToCart()">
-                        ADD +
-                    </button>
+
+                    <div class="product-actions">
+
+                        <button
+                            onclick="addToCart()"
+                        >
+                            ADD +
+                        </button>
+
+                        <button
+                            onclick="buyNow()"
+                        >
+                            BUY
+                        </button>
+
+                    </div>
 
                 </div>
 
@@ -226,14 +518,16 @@
 
 
 
-        <!-- =================================================
-             PRODUCT 03
-        ================================================== -->
+        <!-- PRODUCT 03 -->
 
         <article
             class="product-card"
             data-department="men"
             data-category="pants"
+            data-price="2490"
+            data-colors="black,grey"
+            data-sizes="m,l,xl"
+            data-stock="10"
         >
 
             <div class="product-visual">
@@ -242,11 +536,13 @@
                     03
                 </div>
 
+
                 <div class="fake-product">
                     FFB
                 </div>
 
             </div>
+
 
             <div class="product-info">
 
@@ -254,9 +550,30 @@
                     FUTURE CARGO
                 </h3>
 
+
                 <p>
                     Men / Pants
                 </p>
+
+
+                <div class="product-meta">
+
+                    <span>
+                        COLOR:
+                        BLACK / GREY
+                    </span>
+
+                    <span>
+                        SIZE:
+                        M / L / XL
+                    </span>
+
+                    <span class="stock">
+                        STOCK: 10
+                    </span>
+
+                </div>
+
 
                 <div class="product-bottom">
 
@@ -264,9 +581,22 @@
                         ৳ 2,490
                     </strong>
 
-                    <button onclick="addToCart()">
-                        ADD +
-                    </button>
+
+                    <div class="product-actions">
+
+                        <button
+                            onclick="addToCart()"
+                        >
+                            ADD +
+                        </button>
+
+                        <button
+                            onclick="buyNow()"
+                        >
+                            BUY
+                        </button>
+
+                    </div>
 
                 </div>
 
@@ -276,14 +606,16 @@
 
 
 
-        <!-- =================================================
-             PRODUCT 04 - WOMEN
-        ================================================== -->
+        <!-- PRODUCT 04 -->
 
         <article
             class="product-card"
             data-department="women"
             data-category="dress"
+            data-price="2490"
+            data-colors="black,white,red"
+            data-sizes="s,m,l,xl"
+            data-stock="7"
         >
 
             <div class="product-visual">
@@ -292,11 +624,13 @@
                     04
                 </div>
 
+
                 <div class="fake-product">
                     FFB
                 </div>
 
             </div>
+
 
             <div class="product-info">
 
@@ -304,9 +638,30 @@
                     FUTURE DRESS
                 </h3>
 
+
                 <p>
                     Women / Dress
                 </p>
+
+
+                <div class="product-meta">
+
+                    <span>
+                        COLOR:
+                        BLACK / WHITE / RED
+                    </span>
+
+                    <span>
+                        SIZE:
+                        S / M / L / XL
+                    </span>
+
+                    <span class="stock">
+                        STOCK: 7
+                    </span>
+
+                </div>
+
 
                 <div class="product-bottom">
 
@@ -314,9 +669,22 @@
                         ৳ 2,490
                     </strong>
 
-                    <button onclick="addToCart()">
-                        ADD +
-                    </button>
+
+                    <div class="product-actions">
+
+                        <button
+                            onclick="addToCart()"
+                        >
+                            ADD +
+                        </button>
+
+                        <button
+                            onclick="buyNow()"
+                        >
+                            BUY
+                        </button>
+
+                    </div>
 
                 </div>
 
@@ -326,14 +694,16 @@
 
 
 
-        <!-- =================================================
-             PRODUCT 05 - WOMEN
-        ================================================== -->
+        <!-- PRODUCT 05 -->
 
         <article
             class="product-card"
             data-department="women"
             data-category="top"
+            data-price="1790"
+            data-colors="white,black,blue"
+            data-sizes="s,m,l"
+            data-stock="15"
         >
 
             <div class="product-visual">
@@ -342,11 +712,13 @@
                     05
                 </div>
 
+
                 <div class="fake-product">
                     FFB
                 </div>
 
             </div>
+
 
             <div class="product-info">
 
@@ -354,9 +726,30 @@
                     NEO FUTURE TOP
                 </h3>
 
+
                 <p>
                     Women / Top
                 </p>
+
+
+                <div class="product-meta">
+
+                    <span>
+                        COLOR:
+                        WHITE / BLACK / BLUE
+                    </span>
+
+                    <span>
+                        SIZE:
+                        S / M / L
+                    </span>
+
+                    <span class="stock">
+                        STOCK: 15
+                    </span>
+
+                </div>
+
 
                 <div class="product-bottom">
 
@@ -364,9 +757,22 @@
                         ৳ 1,790
                     </strong>
 
-                    <button onclick="addToCart()">
-                        ADD +
-                    </button>
+
+                    <div class="product-actions">
+
+                        <button
+                            onclick="addToCart()"
+                        >
+                            ADD +
+                        </button>
+
+                        <button
+                            onclick="buyNow()"
+                        >
+                            BUY
+                        </button>
+
+                    </div>
 
                 </div>
 
@@ -376,14 +782,16 @@
 
 
 
-        <!-- =================================================
-             PRODUCT 06 - KIDS
-        ================================================== -->
+        <!-- PRODUCT 06 -->
 
         <article
             class="product-card"
             data-department="kids"
             data-category="tshirt"
+            data-price="990"
+            data-colors="black,white,blue"
+            data-sizes="s,m,l"
+            data-stock="20"
         >
 
             <div class="product-visual">
@@ -392,11 +800,13 @@
                     06
                 </div>
 
+
                 <div class="fake-product">
                     FFB
                 </div>
 
             </div>
+
 
             <div class="product-info">
 
@@ -404,9 +814,30 @@
                     MINI FUTURE TEE
                 </h3>
 
+
                 <p>
                     Kids / T-Shirt
                 </p>
+
+
+                <div class="product-meta">
+
+                    <span>
+                        COLOR:
+                        BLACK / WHITE / BLUE
+                    </span>
+
+                    <span>
+                        SIZE:
+                        S / M / L
+                    </span>
+
+                    <span class="stock">
+                        STOCK: 20
+                    </span>
+
+                </div>
+
 
                 <div class="product-bottom">
 
@@ -414,9 +845,22 @@
                         ৳ 990
                     </strong>
 
-                    <button onclick="addToCart()">
-                        ADD +
-                    </button>
+
+                    <div class="product-actions">
+
+                        <button
+                            onclick="addToCart()"
+                        >
+                            ADD +
+                        </button>
+
+                        <button
+                            onclick="buyNow()"
+                        >
+                            BUY
+                        </button>
+
+                    </div>
 
                 </div>
 
@@ -426,14 +870,16 @@
 
 
 
-        <!-- =================================================
-             PRODUCT 07 - KIDS
-        ================================================== -->
+        <!-- PRODUCT 07 -->
 
         <article
             class="product-card"
             data-department="kids"
             data-category="hoodie"
+            data-price="1690"
+            data-colors="black,grey,red"
+            data-sizes="s,m,l,xl"
+            data-stock="9"
         >
 
             <div class="product-visual">
@@ -442,11 +888,13 @@
                     07
                 </div>
 
+
                 <div class="fake-product">
                     FFB
                 </div>
 
             </div>
+
 
             <div class="product-info">
 
@@ -454,9 +902,30 @@
                     KIDS CYBER HOODIE
                 </h3>
 
+
                 <p>
                     Kids / Hoodie
                 </p>
+
+
+                <div class="product-meta">
+
+                    <span>
+                        COLOR:
+                        BLACK / GREY / RED
+                    </span>
+
+                    <span>
+                        SIZE:
+                        S / M / L / XL
+                    </span>
+
+                    <span class="stock">
+                        STOCK: 9
+                    </span>
+
+                </div>
+
 
                 <div class="product-bottom">
 
@@ -464,9 +933,22 @@
                         ৳ 1,690
                     </strong>
 
-                    <button onclick="addToCart()">
-                        ADD +
-                    </button>
+
+                    <div class="product-actions">
+
+                        <button
+                            onclick="addToCart()"
+                        >
+                            ADD +
+                        </button>
+
+                        <button
+                            onclick="buyNow()"
+                        >
+                            BUY
+                        </button>
+
+                    </div>
 
                 </div>
 
@@ -479,103 +961,108 @@
 
 
 
-<!-- =====================================================
-     DEPARTMENTS
-===================================================== -->
+    <!-- =================================================
+         DEPARTMENTS
+    ================================================= -->
 
-<div class="departments">
+    <div class="departments">
 
-    <div class="department-heading">
 
-        <span>
-            SELECT YOUR DIMENSION
-        </span>
+        <div class="department-heading">
+
+            <span>
+                SELECT YOUR DIMENSION
+            </span>
+
+        </div>
+
+
+
+        <button
+            class="department-card men"
+            onclick="openDepartment('men')"
+        >
+
+            <small>
+                01
+            </small>
+
+
+            <span>
+                MEN
+            </span>
+
+
+            <strong>
+                COMING SOON
+            </strong>
+
+
+            <em>
+                EXPLORE MEN →
+            </em>
+
+        </button>
+
+
+
+        <button
+            class="department-card women"
+            onclick="openDepartment('women')"
+        >
+
+            <small>
+                02
+            </small>
+
+
+            <span>
+                WOMEN
+            </span>
+
+
+            <strong>
+                COMING SOON
+            </strong>
+
+
+            <em>
+                EXPLORE WOMEN →
+            </em>
+
+        </button>
+
+
+
+        <button
+            class="department-card kids"
+            onclick="openDepartment('kids')"
+        >
+
+            <small>
+                03
+            </small>
+
+
+            <span>
+                KIDS
+            </span>
+
+
+            <strong>
+                COMING SOON
+            </strong>
+
+
+            <em>
+                EXPLORE KIDS →
+            </em>
+
+        </button>
+
 
     </div>
 
-
-
-    <!-- MEN -->
-
-    <button
-        class="department-card men"
-        onclick="openDepartment('men')"
-    >
-
-        <small>
-            01
-        </small>
-
-        <span>
-            MEN
-        </span>
-
-        <strong>
-            COMING SOON
-        </strong>
-
-        <em>
-            EXPLORE MEN →
-        </em>
-
-    </button>
-
-
-
-    <!-- WOMEN -->
-
-    <button
-        class="department-card women"
-        onclick="openDepartment('women')"
-    >
-
-        <small>
-            02
-        </small>
-
-        <span>
-            WOMEN
-        </span>
-
-        <strong>
-            COMING SOON
-        </strong>
-
-        <em>
-            EXPLORE WOMEN →
-        </em>
-
-    </button>
-
-
-
-    <!-- KIDS -->
-
-    <button
-        class="department-card kids"
-        onclick="openDepartment('kids')"
-    >
-
-        <small>
-            03
-        </small>
-
-        <span>
-            KIDS
-        </span>
-
-        <strong>
-            COMING SOON
-        </strong>
-
-        <em>
-            EXPLORE KIDS →
-        </em>
-
-    </button>
-
-
-</div>
 
 </div>
 
@@ -590,12 +1077,16 @@
     class="department-view"
 >
 
+
     <button
         class="back-btn"
         onclick="showAllProducts()"
     >
+
         ← ALL PRODUCTS
+
     </button>
+
 
 
     <div class="department-title">
@@ -604,9 +1095,11 @@
             01 / MEN
         </span>
 
+
         <h2 id="departmentName">
             MEN
         </h2>
+
 
         <p id="departmentDescription">
             FUTURE MENSWEAR
@@ -616,7 +1109,7 @@
 
 
 
-    <!-- CATEGORY NAV -->
+    <!-- CATEGORY -->
 
     <div
         id="categoryNav"
@@ -625,12 +1118,137 @@
 
 
 
-    <!-- FILTERED PRODUCTS -->
+    <!-- FILTER / SORT -->
+
+    <div class="listing-toolbar">
+
+        <div class="listing-count">
+
+            <span id="productCount">
+                0
+            </span>
+
+            PRODUCTS
+
+        </div>
+
+
+        <div class="listing-controls">
+
+
+            <select id="colorFilter">
+
+                <option value="all">
+                    COLOR: ALL
+                </option>
+
+                <option value="black">
+                    BLACK
+                </option>
+
+                <option value="white">
+                    WHITE
+                </option>
+
+                <option value="grey">
+                    GREY
+                </option>
+
+                <option value="blue">
+                    BLUE
+                </option>
+
+                <option value="red">
+                    RED
+                </option>
+
+            </select>
+
+
+
+            <select id="sizeFilter">
+
+                <option value="all">
+                    SIZE: ALL
+                </option>
+
+                <option value="s">
+                    S
+                </option>
+
+                <option value="m">
+                    M
+                </option>
+
+                <option value="l">
+                    L
+                </option>
+
+                <option value="xl">
+                    XL
+                </option>
+
+                <option value="xxl">
+                    XXL
+                </option>
+
+            </select>
+
+
+
+            <select id="priceFilter">
+
+                <option value="all">
+                    PRICE: ALL
+                </option>
+
+                <option value="0-1500">
+                    ৳ 0 — 1,500
+                </option>
+
+                <option value="1500-2500">
+                    ৳ 1,500 — 2,500
+                </option>
+
+                <option value="2500-5000">
+                    ৳ 2,500 — 5,000
+                </option>
+
+                <option value="5000+">
+                    ৳ 5,000+
+                </option>
+
+            </select>
+
+
+
+            <select id="sortProducts">
+
+                <option value="default">
+                    SORT: DEFAULT
+                </option>
+
+                <option value="low">
+                    PRICE: LOW → HIGH
+                </option>
+
+                <option value="high">
+                    PRICE: HIGH → LOW
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
 
     <div
         id="departmentProducts"
         class="products"
     ></div>
+
 
 </div>
 
@@ -643,22 +1261,34 @@
      ABOUT
 ===================================================== -->
 
-<section id="about" class="about">
+<section
+    id="about"
+    class="about"
+>
 
     <span>
         02 / ABOUT FFB
     </span>
 
+
     <h2>
+
         FASHION<br>
         WITHOUT<br>
         LIMITS.
+
     </h2>
 
+
     <p>
-        Future Fashion Bangladesh is built for the next generation.
-        We combine modern streetwear with futuristic design to create
-        clothing that feels different from everything around you.
+
+        Future Fashion Bangladesh is built
+        for the next generation.
+        We combine modern streetwear with
+        futuristic design to create clothing
+        that feels different from everything
+        around you.
+
     </p>
 
 </section>
@@ -669,23 +1299,36 @@
      CONTACT
 ===================================================== -->
 
-<section id="contact" class="contact">
+<section
+    id="contact"
+    class="contact"
+>
 
     <span>
         03 / CONTACT
     </span>
 
+
     <h2>
+
         ENTER<br>
         THE<br>
         FUTURE.
+
     </h2>
 
-    <button class="contact-btn">
+
+    <button
+        class="contact-btn"
+        onclick="contactFFB()"
+    >
+
         CONTACT FFB →
+
     </button>
 
 </section>
+
 
 
 </main>
@@ -702,6 +1345,7 @@
         FUTURE FASHION BANGLADESH
     </div>
 
+
     <div>
         © 2026 FFB
     </div>
@@ -710,14 +1354,9 @@
 
 
 
-<!-- =====================================================
-     JAVASCRIPT
-     
-     CACHE BUSTING VERSION
-     This helps GitHub Pages load the newest app.js.
-===================================================== -->
+<script src="app.js?v=6"></script>
 
-<script src="app.js?v=4"></script>
 
 </body>
+
 </html>
