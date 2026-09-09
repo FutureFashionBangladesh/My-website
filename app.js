@@ -117,7 +117,12 @@ if (!container) {
 
 
 
-    /* LIGHTS */
+    /* =================================================
+       LIGHTS
+       White reflection lights moved to layer 1.
+       Main model stays on layer 0.
+       This removes the two bright white spots.
+    ================================================= */
 
     scene.add(
         new THREE.AmbientLight(
@@ -142,6 +147,15 @@ if (!container) {
     );
 
 
+    /*
+       IMPORTANT:
+       Keep point light away from the main model
+       so it cannot create the white reflection spots.
+    */
+
+    light1.layers.set(1);
+
+
     scene.add(light1);
 
 
@@ -158,6 +172,13 @@ if (!container) {
         -2,
         4
     );
+
+
+    /*
+       Same protection for second light.
+    */
+
+    light2.layers.set(1);
 
 
     scene.add(light2);
@@ -194,6 +215,16 @@ if (!container) {
             geometry,
             material
         );
+
+
+    /*
+       Main model remains on default layer 0.
+       Point lights are on layer 1,
+       therefore they cannot create white
+       specular spots on this object.
+    */
+
+    object.layers.set(0);
 
 
     scene.add(object);
@@ -1936,7 +1967,6 @@ window.closeProductDetail =
 
         document.body.style.overflow =
             "";
-
 
 
         currentDetailProduct =
