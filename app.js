@@ -5,6 +5,27 @@
 
 
 /* =====================================================
+   GLOBAL
+===================================================== */
+
+let cartCount = 0;
+
+let currentDepartment = "all";
+
+let currentCategory = "all";
+
+let productStore = [];
+
+let currentDetailProduct = null;
+
+let detailSelectedColor = "";
+
+let detailSelectedSize = "";
+
+let detailQuantity = 1;
+
+
+/* =====================================================
    3D HERO
 ===================================================== */
 
@@ -16,8 +37,6 @@ const container =
 
 let mouseX = 0;
 let mouseY = 0;
-
-let cartCount = 0;
 
 
 if (!container) {
@@ -1058,24 +1077,39 @@ if (!container) {
    CART
 ===================================================== */
 
+function updateCartCount() {
+
+    const cart =
+        document.getElementById(
+            "cartCount"
+        );
+
+
+    if (cart) {
+
+        cart.textContent =
+            cartCount;
+
+    }
+
+}
+
+
+
 window.addToCart =
-    function() {
+    function(quantity = 1) {
 
-        cartCount++;
-
-
-        const cart =
-            document.getElementById(
-                "cartCount"
+        const amount =
+            Math.max(
+                1,
+                Number(quantity) || 1
             );
 
 
-        if (cart) {
+        cartCount += amount;
 
-            cart.textContent =
-                cartCount;
 
-        }
+        updateCartCount();
 
 
         alert(
@@ -1295,18 +1329,812 @@ function normalizeCategory(
 
 
 /* =====================================================
-   STORE PRODUCTS
+   PRODUCT STORE
+===================================================== */
+
+function initializeProductStore() {
+
+    const grid =
+        document.getElementById(
+            "productGrid"
+        );
+
+
+    if (!grid) {
+
+        productStore = [];
+
+        return;
+
+    }
+
+
+    productStore =
+        Array.from(
+            grid.querySelectorAll(
+                ".product-card"
+            )
+        ).map(
+            function(product) {
+
+                return product.cloneNode(
+                    true
+                );
+
+            }
+        );
+
+}
+
+
+
+/* =====================================================
+   GET PRODUCTS
 ===================================================== */
 
 function getProducts() {
 
-    return Array.from(
-        document.querySelectorAll(
-            "#productGrid .product-card"
-        )
+    return productStore.map(
+        function(product) {
+
+            return product.cloneNode(
+                true
+            );
+
+        }
     );
 
 }
+
+
+
+/* =====================================================
+   PRODUCT INFORMATION
+===================================================== */
+
+function getProductDescription(
+    product
+) {
+
+    return (
+        product.dataset.description ||
+        "Designed for the future. Premium futuristic fashion with a clean modern look."
+    );
+
+}
+
+
+
+function getProductMaterial(
+    product
+) {
+
+    return (
+        product.dataset.material ||
+        "Premium fabric. Machine wash cold. Wash with similar colors. Do not bleach."
+    );
+
+}
+
+
+
+/* =====================================================
+   PRODUCT DETAIL
+===================================================== */
+
+function bindProductCards(
+    containerElement
+) {
+
+    if (!containerElement) {
+
+        return;
+
+    }
+
+
+    containerElement
+        .querySelectorAll(
+            ".product-card"
+        )
+        .forEach(
+            function(card) {
+
+                card.style.cursor =
+                    "pointer";
+
+
+                card.addEventListener(
+                    "click",
+                    function(event) {
+
+                        const target =
+                            event.target;
+
+
+                        if (
+                            target.closest(
+                                "button"
+                            ) ||
+                            target.closest(
+                                "select"
+                            ) ||
+                            target.closest(
+                                "input"
+                            ) ||
+                            target.closest(
+                                "a"
+                            )
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        openProductDetail(
+                            card
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+
+function openProductDetail(
+    product
+) {
+
+    if (!product) {
+
+        return;
+
+    }
+
+
+    currentDetailProduct =
+        product.cloneNode(
+            true
+        );
+
+
+    detailSelectedColor = "";
+
+    detailSelectedSize = "";
+
+    detailQuantity = 1;
+
+
+
+    const modal =
+        document.getElementById(
+            "productDetailModal"
+        );
+
+
+    if (!modal) {
+
+        return;
+
+    }
+
+
+
+    const image =
+        document.getElementById(
+            "detailImage"
+        );
+
+
+    const category =
+        document.getElementById(
+            "detailCategory"
+        );
+
+
+    const name =
+        document.getElementById(
+            "detailName"
+        );
+
+
+    const price =
+        document.getElementById(
+            "detailPrice"
+        );
+
+
+    const colors =
+        document.getElementById(
+            "detailColors"
+        );
+
+
+    const sizes =
+        document.getElementById(
+            "detailSizes"
+        );
+
+
+    const stock =
+        document.getElementById(
+            "detailStock"
+        );
+
+
+    const quantity =
+        document.getElementById(
+            "detailQuantity"
+        );
+
+
+    const description =
+        document.getElementById(
+            "detailDescription"
+        );
+
+
+    const material =
+        document.getElementById(
+            "detailMaterial"
+        );
+
+
+
+    const productImage =
+        product.querySelector(
+            ".product-visual img"
+        );
+
+
+    if (image) {
+
+        image.src =
+            productImage
+            ? productImage.src
+            : "";
+
+
+        image.alt =
+            product.dataset.name ||
+            "Product";
+
+    }
+
+
+
+    if (category) {
+
+        category.textContent =
+            String(
+                product.dataset.category ||
+                ""
+            ).toUpperCase();
+
+    }
+
+
+
+    if (name) {
+
+        name.textContent =
+            product.dataset.name ||
+            "PRODUCT";
+
+    }
+
+
+
+    if (price) {
+
+        const productPrice =
+            Number(
+                product.dataset.price ||
+                0
+            );
+
+
+        price.textContent =
+            "৳" +
+            productPrice.toLocaleString(
+                "en-BD"
+            );
+
+    }
+
+
+
+    /* COLORS */
+
+    if (colors) {
+
+        colors.innerHTML =
+            "";
+
+
+        const colorList =
+            String(
+                product.dataset.colors ||
+                ""
+            )
+            .split(",")
+            .map(
+                function(color) {
+
+                    return color
+                        .trim();
+
+                }
+            )
+            .filter(Boolean);
+
+
+        colorList.forEach(
+            function(color, index) {
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                button.type =
+                    "button";
+
+
+                button.className =
+                    "detail-option";
+
+
+                button.textContent =
+                    color.toUpperCase();
+
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        colors
+                            .querySelectorAll(
+                                ".detail-option"
+                            )
+                            .forEach(
+                                function(item) {
+
+                                    item.classList.remove(
+                                        "active"
+                                    );
+
+                                }
+                            );
+
+
+                        button.classList.add(
+                            "active"
+                        );
+
+
+                        detailSelectedColor =
+                            color;
+
+                    }
+                );
+
+
+                colors.appendChild(
+                    button
+                );
+
+
+                if (index === 0) {
+
+                    button.click();
+
+                }
+
+            }
+        );
+
+    }
+
+
+
+    /* SIZES */
+
+    if (sizes) {
+
+        sizes.innerHTML =
+            "";
+
+
+        const sizeList =
+            String(
+                product.dataset.sizes ||
+                ""
+            )
+            .split(",")
+            .map(
+                function(size) {
+
+                    return size
+                        .trim();
+
+                }
+            )
+            .filter(Boolean);
+
+
+        sizeList.forEach(
+            function(size, index) {
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                button.type =
+                    "button";
+
+
+                button.className =
+                    "detail-option";
+
+
+                button.textContent =
+                    size.toUpperCase();
+
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        sizes
+                            .querySelectorAll(
+                                ".detail-option"
+                            )
+                            .forEach(
+                                function(item) {
+
+                                    item.classList.remove(
+                                        "active"
+                                    );
+
+                                }
+                            );
+
+
+                        button.classList.add(
+                            "active"
+                        );
+
+
+                        detailSelectedSize =
+                            size;
+
+                    }
+                );
+
+
+                sizes.appendChild(
+                    button
+                );
+
+
+                if (index === 0) {
+
+                    button.click();
+
+                }
+
+            }
+        );
+
+    }
+
+
+
+    /* STOCK */
+
+    if (stock) {
+
+        const stockValue =
+            Number(
+                product.dataset.stock ||
+                0
+            );
+
+
+        if (stockValue > 0) {
+
+            stock.textContent =
+                "IN STOCK: " +
+                stockValue;
+
+        } else {
+
+            stock.textContent =
+                "OUT OF STOCK";
+
+        }
+
+    }
+
+
+
+    /* QUANTITY */
+
+    if (quantity) {
+
+        quantity.textContent =
+            detailQuantity;
+
+    }
+
+
+
+    /* DESCRIPTION */
+
+    if (description) {
+
+        description.textContent =
+            getProductDescription(
+                product
+            );
+
+    }
+
+
+
+    /* MATERIAL */
+
+    if (material) {
+
+        material.textContent =
+            getProductMaterial(
+                product
+            );
+
+    }
+
+
+
+    modal.classList.add(
+        "active"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+
+window.closeProductDetail =
+    function() {
+
+        const modal =
+            document.getElementById(
+                "productDetailModal"
+            );
+
+
+        if (modal) {
+
+            modal.classList.remove(
+                "active"
+            );
+
+        }
+
+
+        document.body.style.overflow =
+            "";
+
+
+
+        currentDetailProduct =
+            null;
+
+};
+
+
+
+window.changeDetailQuantity =
+    function(change) {
+
+        if (!currentDetailProduct) {
+
+            return;
+
+        }
+
+
+        const stock =
+            Number(
+                currentDetailProduct.dataset.stock ||
+                0
+            );
+
+
+        let newQuantity =
+            detailQuantity +
+            Number(change);
+
+
+        if (newQuantity < 1) {
+
+            newQuantity = 1;
+
+        }
+
+
+        if (
+            stock > 0 &&
+            newQuantity > stock
+        ) {
+
+            newQuantity =
+                stock;
+
+        }
+
+
+        detailQuantity =
+            newQuantity;
+
+
+        const quantity =
+            document.getElementById(
+                "detailQuantity"
+            );
+
+
+        if (quantity) {
+
+            quantity.textContent =
+                detailQuantity;
+
+        }
+
+};
+
+
+
+window.detailAddToCart =
+    function() {
+
+        if (!currentDetailProduct) {
+
+            return;
+
+        }
+
+
+        const stock =
+            Number(
+                currentDetailProduct.dataset.stock ||
+                0
+            );
+
+
+        if (stock <= 0) {
+
+            alert(
+                "PRODUCT IS OUT OF STOCK"
+            );
+
+            return;
+
+        }
+
+
+        cartCount +=
+            detailQuantity;
+
+
+        updateCartCount();
+
+
+        alert(
+            "PRODUCT ADDED TO CART"
+        );
+
+
+        closeProductDetail();
+
+};
+
+
+
+window.detailBuyNow =
+    function() {
+
+        if (!currentDetailProduct) {
+
+            return;
+
+        }
+
+
+        const stock =
+            Number(
+                currentDetailProduct.dataset.stock ||
+                0
+            );
+
+
+        if (stock <= 0) {
+
+            alert(
+                "PRODUCT IS OUT OF STOCK"
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "CHECKOUT SYSTEM COMING NEXT"
+        );
+
+};
+
+
+
+/* =====================================================
+   CLOSE MODAL BY BACKDROP
+===================================================== */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const modal =
+            document.getElementById(
+                "productDetailModal"
+            );
+
+
+        if (
+            modal &&
+            event.target === modal
+        ) {
+
+            closeProductDetail();
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   ESCAPE KEY
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeProductDetail();
+
+        }
+
+    }
+);
 
 
 
@@ -1371,12 +2199,19 @@ function productMatchesFilters(
                 ""
             )
             .toLowerCase()
-            .split(",");
+            .split(",")
+            .map(
+                function(color) {
+
+                    return color.trim();
+
+                }
+            );
 
 
         if (
             !colors.includes(
-                selectedColor
+                selectedColor.toLowerCase()
             )
         ) {
 
@@ -1400,12 +2235,19 @@ function productMatchesFilters(
                 ""
             )
             .toLowerCase()
-            .split(",");
+            .split(",")
+            .map(
+                function(size) {
+
+                    return size.trim();
+
+                }
+            );
 
 
         if (
             !sizes.includes(
-                selectedSize
+                selectedSize.toLowerCase()
             )
         ) {
 
@@ -1653,16 +2495,18 @@ function refreshAllProducts() {
 
 
     if (!grid) {
+
         return;
+
     }
 
 
-    const originalProducts =
+    let products =
         getProducts();
 
 
-    let products =
-        originalProducts.filter(
+    products =
+        products.filter(
             function(product) {
 
                 return productMatchesFilters(
@@ -1672,6 +2516,7 @@ function refreshAllProducts() {
 
             }
         );
+
 
 
     const sort =
@@ -1693,20 +2538,26 @@ function refreshAllProducts() {
         );
 
 
-    grid.innerHTML = "";
+    grid.innerHTML =
+        "";
+
 
 
     products.forEach(
         function(product) {
 
             grid.appendChild(
-                product.cloneNode(
-                    true
-                )
+                product
             );
 
         }
     );
+
+
+    bindProductCards(
+        grid
+    );
+
 
 
     const count =
@@ -1721,6 +2572,7 @@ function refreshAllProducts() {
             products.length;
 
     }
+
 
 
     if (!products.length) {
@@ -1768,11 +2620,14 @@ function createCategoryNav(
 
 
     if (!nav) {
+
         return;
+
     }
 
 
-    nav.innerHTML = "";
+    nav.innerHTML =
+        "";
 
 
 
@@ -1893,19 +2748,6 @@ function createCategoryNav(
 
 
 /* =====================================================
-   CURRENT DEPARTMENT / CATEGORY
-===================================================== */
-
-let currentDepartment =
-    "all";
-
-
-let currentCategory =
-    "all";
-
-
-
-/* =====================================================
    REFRESH DEPARTMENT PRODUCTS
 ===================================================== */
 
@@ -1918,12 +2760,15 @@ function refreshDepartmentProducts() {
 
 
     if (!target) {
+
         return;
+
     }
 
 
     let products =
         getProducts();
+
 
 
     /* DEPARTMENT */
@@ -2026,12 +2871,15 @@ function refreshDepartmentProducts() {
         function(product) {
 
             target.appendChild(
-                product.cloneNode(
-                    true
-                )
+                product
             );
 
         }
+    );
+
+
+    bindProductCards(
+        target
     );
 
 
@@ -2098,7 +2946,9 @@ window.openDepartment =
 
 
         if (!data) {
+
             return;
+
         }
 
 
@@ -2299,7 +3149,6 @@ window.showAllProducts =
 
 function setupFilterEvents() {
 
-
     const allFilterIds = [
 
         "allColorFilter",
@@ -2390,9 +3239,13 @@ document.addEventListener(
     "DOMContentLoaded",
     function() {
 
+        initializeProductStore();
+
         setupFilterEvents();
 
         refreshAllProducts();
+
+        updateCartCount();
 
     }
 );
