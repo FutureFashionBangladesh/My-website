@@ -1,12 +1,19 @@
+/* =====================================================
+   FUTURE FASHION BANGLADESH
+   MAIN STYLE
+===================================================== */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+
 html {
     scroll-behavior: smooth;
 }
+
 
 body {
     background: #050505;
@@ -16,18 +23,21 @@ body {
 }
 
 
-/* GRID */
-
 body:before {
+
     content: "";
+
     position: fixed;
+
     inset: 0;
 
     background-image:
+
         linear-gradient(
             rgba(255,255,255,0.025) 1px,
             transparent 1px
         ),
+
         linear-gradient(
             90deg,
             rgba(255,255,255,0.025) 1px,
@@ -37,45 +47,70 @@ body:before {
     background-size: 60px 60px;
 
     pointer-events: none;
+
     z-index: -1;
 }
 
 
-/* LOADING */
+
+/* =====================================================
+   LOADING
+===================================================== */
 
 #loading {
+
     position: fixed;
+
     inset: 0;
 
     background: #050505;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     z-index: 9999;
 
-    animation: loadingOut 1s ease 1.2s forwards;
+    animation:
+        loadingOut
+        1s
+        ease
+        1.2s
+        forwards;
 }
 
+
 .loading-text {
+
     letter-spacing: 5px;
+
     font-size: 12px;
+
 }
+
 
 @keyframes loadingOut {
 
     to {
+
         opacity: 0;
+
         visibility: hidden;
+
     }
 
 }
 
 
-/* HEADER */
+
+/* =====================================================
+   HEADER
+===================================================== */
 
 header {
+
     position: fixed;
 
     top: 0;
@@ -85,49 +120,81 @@ header {
     height: 80px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
     padding: 0 5%;
 
-    background: rgba(5,5,5,0.72);
+    background:
+        rgba(5,5,5,0.72);
 
-    backdrop-filter: blur(20px);
+    backdrop-filter:
+        blur(20px);
 
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    border-bottom:
+        1px solid
+        rgba(255,255,255,0.08);
 
     z-index: 100;
+
 }
+
 
 .logo {
+
     font-size: 25px;
+
     font-weight: 900;
+
     letter-spacing: -2px;
+
 }
+
 
 .logo span {
+
     color: #00ffff;
+
 }
+
 
 nav {
+
     display: flex;
+
     gap: 35px;
+
 }
+
 
 nav a {
+
     color: #aaa;
+
     text-decoration: none;
+
     font-size: 11px;
+
     letter-spacing: 2px;
+
     transition: 0.3s;
+
 }
+
 
 nav a:hover {
+
     color: #fff;
+
 }
 
+
 .cart-btn {
+
     background: transparent;
+
     color: #fff;
 
     border: 1px solid #444;
@@ -139,44 +206,72 @@ nav a:hover {
     letter-spacing: 2px;
 
     transition: 0.3s;
+
 }
+
 
 .cart-btn:hover {
+
     border-color: #fff;
+
 }
 
 
-/* HERO */
+.cart-btn span {
+
+    margin-left: 6px;
+
+    color: #00ffff;
+
+}
+
+
+
+/* =====================================================
+   HERO
+===================================================== */
 
 .hero {
+
     min-height: 100vh;
 
     position: relative;
 
     display: flex;
+
     align-items: center;
 
     padding: 120px 8% 60px;
 
     overflow: hidden;
+
 }
 
+
 #canvas-container {
+
     position: absolute;
 
     inset: 0;
 
     z-index: 0;
+
 }
 
+
 .hero-content {
+
     position: relative;
+
     z-index: 2;
 
     max-width: 600px;
+
 }
 
+
 .small-title {
+
     font-size: 11px;
 
     letter-spacing: 5px;
@@ -184,25 +279,40 @@ nav a:hover {
     color: #888;
 
     margin-bottom: 25px;
+
 }
 
+
 .hero h1 {
-    font-size: clamp(70px, 11vw, 150px);
+
+    font-size:
+        clamp(
+            70px,
+            11vw,
+            150px
+        );
 
     line-height: 0.82;
 
     letter-spacing: -8px;
 
     font-weight: 900;
+
 }
+
 
 .hero h1 span {
+
     color: transparent;
 
-    -webkit-text-stroke: 1px #fff;
+    -webkit-text-stroke:
+        1px #fff;
+
 }
 
+
 .hero p {
+
     color: #999;
 
     max-width: 380px;
@@ -210,28 +320,36 @@ nav a:hover {
     line-height: 1.7;
 
     margin: 35px 0;
+
 }
 
+
 .explore-btn {
+
     display: inline-block;
 
     color: #fff;
 
     text-decoration: none;
 
-    border-bottom: 1px solid #fff;
+    border-bottom:
+        1px solid #fff;
 
     padding-bottom: 8px;
 
     font-size: 12px;
 
     letter-spacing: 3px;
+
 }
 
+
 .scroll {
+
     position: absolute;
 
     bottom: 35px;
+
     left: 8%;
 
     color: #555;
@@ -239,51 +357,76 @@ nav a:hover {
     font-size: 9px;
 
     letter-spacing: 4px;
+
 }
 
 
-/* COLLECTION */
+
+/* =====================================================
+   COLLECTION
+===================================================== */
 
 .collection {
-    padding: 130px 7% 160px;
+
+    padding:
+        130px
+        7%
+        160px;
+
 }
 
+
 .section-heading span {
+
     color: #666;
 
     font-size: 11px;
 
     letter-spacing: 4px;
+
 }
 
+
 .section-heading h2 {
-    font-size: clamp(55px, 9vw, 130px);
+
+    font-size:
+        clamp(
+            55px,
+            9vw,
+            130px
+        );
 
     line-height: 0.85;
 
     letter-spacing: -6px;
 
     margin-top: 25px;
+
 }
 
 
-/* ALL PRODUCTS */
-
 .collection-title {
+
     margin-top: 110px;
 
     margin-bottom: 45px;
+
 }
 
+
 .collection-title span {
+
     font-size: 11px;
 
     color: #777;
 
     letter-spacing: 4px;
+
 }
 
+
 .collection-title h3 {
+
     font-size: 48px;
 
     line-height: 0.9;
@@ -291,37 +434,62 @@ nav a:hover {
     margin-top: 15px;
 
     letter-spacing: -3px;
+
 }
 
 
-/* PRODUCTS */
+
+/* =====================================================
+   PRODUCT GRID
+===================================================== */
 
 .products {
+
     display: grid;
 
     grid-template-columns:
-        repeat(3, minmax(0, 1fr));
+        repeat(
+            3,
+            minmax(0,1fr)
+        );
 
     gap: 25px;
+
 }
 
+
 .product-card {
+
     background: #0c0c0c;
 
-    border: 1px solid #202020;
+    border:
+        1px solid
+        #202020;
 
     transition: 0.4s;
 
     overflow: hidden;
+
 }
+
 
 .product-card:hover {
-    transform: translateY(-8px);
+
+    transform:
+        translateY(-8px);
 
     border-color: #555;
+
 }
 
+
+
+/* =====================================================
+   DO NOT CHANGE PRODUCT IMAGE DISPLAY
+===================================================== */
+
 .product-visual {
+
     height: 430px;
 
     position: relative;
@@ -329,6 +497,7 @@ nav a:hover {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     overflow: hidden;
@@ -339,24 +508,38 @@ nav a:hover {
             #292929 0%,
             #0c0c0c 65%
         );
+
 }
 
+
 .product-visual img {
+
     max-width: 90%;
+
     max-height: 90%;
 
     width: auto;
+
     height: auto;
 
     object-fit: contain;
 
     display: block;
+
 }
 
+
+
+/* =====================================================
+   PRODUCT DETAILS
+===================================================== */
+
 .product-number {
+
     position: absolute;
 
     top: 18px;
+
     left: 18px;
 
     color: #666;
@@ -366,9 +549,12 @@ nav a:hover {
     letter-spacing: 3px;
 
     z-index: 2;
+
 }
 
+
 .fake-product {
+
     font-size: 75px;
 
     font-weight: 900;
@@ -377,76 +563,268 @@ nav a:hover {
 
     color: transparent;
 
-    -webkit-text-stroke: 1px #444;
+    -webkit-text-stroke:
+        1px #444;
 
-    transform: rotate(-15deg);
+    transform:
+        rotate(-15deg);
+
 }
+
 
 .product-info {
+
     padding: 25px;
+
 }
 
+
 .product-info h3 {
+
     font-size: 16px;
 
     letter-spacing: 1px;
+
 }
 
-.product-info p {
+
+.product-info > p {
+
     color: #666;
 
     font-size: 11px;
 
     margin-top: 8px;
+
 }
 
+
+.product-meta {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    margin-top: 14px;
+
+    color: #555;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    line-height: 1.4;
+
+}
+
+
+.product-meta .stock {
+
+    color: #777;
+
+}
+
+
 .product-bottom {
+
     display: flex;
 
     justify-content: space-between;
+
     align-items: center;
 
-    margin-top: 25px;
+    gap: 12px;
+
+    margin-top: 22px;
+
 }
+
 
 .product-bottom strong {
+
     font-size: 15px;
+
+    white-space: nowrap;
+
 }
 
-.product-bottom button {
+
+.product-actions {
+
+    display: flex;
+
+    gap: 6px;
+
+}
+
+
+.product-actions button {
+
     background: transparent;
 
-    border: 1px solid #444;
+    border:
+        1px solid
+        #444;
 
     color: white;
 
-    padding: 9px 13px;
+    padding:
+        9px
+        11px;
 
     cursor: pointer;
 
     transition: 0.3s;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
 }
 
-.product-bottom button:hover {
+
+.product-actions button:hover {
+
     background: #fff;
 
     color: #000;
+
 }
 
 
-/* DEPARTMENTS */
+
+/* =====================================================
+   LISTING TOOLBAR
+===================================================== */
+
+.listing-toolbar {
+
+    margin:
+        50px
+        0
+        35px;
+
+    padding:
+        22px
+        0;
+
+    border-top:
+        1px solid
+        #222;
+
+    border-bottom:
+        1px solid
+        #222;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 25px;
+
+}
+
+
+.listing-count {
+
+    color: #777;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    white-space: nowrap;
+
+}
+
+
+.listing-count span {
+
+    color: #fff;
+
+}
+
+
+.listing-controls {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+}
+
+
+.listing-controls select {
+
+    appearance: none;
+
+    background: #080808;
+
+    color: #aaa;
+
+    border:
+        1px solid
+        #292929;
+
+    padding:
+        13px
+        35px
+        13px
+        14px;
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+
+    cursor: pointer;
+
+    outline: none;
+
+    transition: 0.3s;
+
+}
+
+
+.listing-controls select:hover,
+.listing-controls select:focus {
+
+    color: #fff;
+
+    border-color: #666;
+
+}
+
+
+
+/* =====================================================
+   DEPARTMENTS
+===================================================== */
 
 .departments {
+
     margin-top: 150px;
 
     display: flex;
 
     flex-direction: column;
 
-    border-top: 1px solid #222;
+    border-top:
+        1px solid
+        #222;
+
 }
 
+
 .department-heading {
+
     padding: 30px 0;
 
     color: #555;
@@ -454,9 +832,12 @@ nav a:hover {
     font-size: 10px;
 
     letter-spacing: 5px;
+
 }
 
+
 .department-card {
+
     width: 100%;
 
     min-height: 190px;
@@ -469,7 +850,9 @@ nav a:hover {
 
     justify-content: space-between;
 
-    padding: 30px 20px;
+    padding:
+        30px
+        20px;
 
     background: transparent;
 
@@ -477,7 +860,9 @@ nav a:hover {
 
     border: none;
 
-    border-top: 1px solid #222;
+    border-top:
+        1px solid
+        #222;
 
     cursor: pointer;
 
@@ -486,10 +871,18 @@ nav a:hover {
     transition: 0.5s;
 
     overflow: hidden;
+
 }
 
+
 .department-card span {
-    font-size: clamp(65px, 12vw, 170px);
+
+    font-size:
+        clamp(
+            65px,
+            12vw,
+            170px
+        );
 
     line-height: 0.8;
 
@@ -499,15 +892,20 @@ nav a:hover {
 
     color: transparent;
 
-    -webkit-text-stroke: 1px #777;
+    -webkit-text-stroke:
+        1px #777;
 
     transition: 0.5s;
+
 }
 
+
 .department-card small {
+
     position: absolute;
 
     top: 25px;
+
     left: 20px;
 
     font-size: 10px;
@@ -515,9 +913,31 @@ nav a:hover {
     color: #555;
 
     letter-spacing: 3px;
+
 }
 
+
+.department-card strong {
+
+    position: absolute;
+
+    left: 20px;
+
+    bottom: 25px;
+
+    color: #555;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    font-weight: normal;
+
+}
+
+
 .department-card em {
+
     font-style: normal;
 
     font-size: 10px;
@@ -527,9 +947,12 @@ nav a:hover {
     color: #555;
 
     transition: 0.3s;
+
 }
 
+
 .department-card:hover {
+
     padding-left: 40px;
 
     background:
@@ -538,28 +961,42 @@ nav a:hover {
             rgba(255,255,255,0.06),
             transparent
         );
+
 }
 
+
 .department-card:hover span {
+
     color: #fff;
 
     -webkit-text-stroke: 0;
+
 }
+
 
 .department-card:hover em {
+
     color: #fff;
+
 }
 
 
-/* DEPARTMENT VIEW */
+
+/* =====================================================
+   DEPARTMENT VIEW
+===================================================== */
 
 .department-view {
+
     display: none;
 
     margin-top: 100px;
+
 }
 
+
 .back-btn {
+
     background: transparent;
 
     border: none;
@@ -575,31 +1012,48 @@ nav a:hover {
     margin-bottom: 60px;
 
     transition: 0.3s;
+
 }
+
 
 .back-btn:hover {
+
     color: white;
+
 }
 
+
 .department-title span {
+
     color: #666;
 
     font-size: 11px;
 
     letter-spacing: 4px;
+
 }
 
+
 .department-title h2 {
-    font-size: clamp(70px, 13vw, 180px);
+
+    font-size:
+        clamp(
+            70px,
+            13vw,
+            180px
+        );
 
     line-height: 0.8;
 
     letter-spacing: -10px;
 
     margin-top: 20px;
+
 }
 
+
 .department-title p {
+
     margin-top: 25px;
 
     color: #666;
@@ -607,33 +1061,51 @@ nav a:hover {
     letter-spacing: 5px;
 
     font-size: 11px;
+
 }
 
 
-/* CATEGORY */
+
+/* =====================================================
+   CATEGORY NAVIGATION
+===================================================== */
 
 .category-nav {
+
     display: flex;
 
     flex-wrap: wrap;
 
     gap: 10px;
 
-    margin: 70px 0 50px;
+    margin:
+        70px
+        0
+        0;
 
-    border-top: 1px solid #222;
+    border-top:
+        1px solid
+        #222;
 
     padding-top: 30px;
+
 }
 
-.category-btn {
+
+.category-btn,
+.category-button {
+
     background: transparent;
 
     color: #888;
 
-    border: 1px solid #333;
+    border:
+        1px solid
+        #333;
 
-    padding: 14px 20px;
+    padding:
+        14px
+        20px;
 
     cursor: pointer;
 
@@ -642,47 +1114,148 @@ nav a:hover {
     letter-spacing: 2px;
 
     transition: 0.3s;
+
 }
 
+
 .category-btn:hover,
-.category-btn.active {
+.category-button:hover,
+.category-btn.active,
+.category-button.active {
+
     color: #000;
 
     background: #fff;
 
     border-color: #fff;
+
 }
 
 
-/* ABOUT */
+
+/* =====================================================
+   COMING SOON
+===================================================== */
+
+.ffb-coming-soon {
+
+    grid-column:
+        1 / -1;
+
+    min-height: 300px;
+
+    border:
+        1px solid
+        #222;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #151515 0%,
+            #070707 65%
+        );
+
+}
+
+
+.ffb-coming-soon span {
+
+    color: #555;
+
+    font-size: 10px;
+
+    letter-spacing: 5px;
+
+}
+
+
+.ffb-coming-soon h3 {
+
+    margin-top: 20px;
+
+    font-size: 55px;
+
+    letter-spacing: -3px;
+
+}
+
+
+.ffb-coming-soon p {
+
+    margin-top: 15px;
+
+    color: #555;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+}
+
+
+
+/* =====================================================
+   ABOUT
+===================================================== */
 
 .about {
-    padding: 150px 8%;
 
-    border-top: 1px solid #222;
+    padding:
+        150px
+        8%;
+
+    border-top:
+        1px solid
+        #222;
+
 }
+
 
 .about > span,
 .contact > span {
+
     color: #666;
 
     font-size: 10px;
 
     letter-spacing: 4px;
+
 }
+
 
 .about h2,
 .contact h2 {
-    font-size: clamp(60px, 10vw, 150px);
+
+    font-size:
+        clamp(
+            60px,
+            10vw,
+            150px
+        );
 
     line-height: 0.82;
 
     letter-spacing: -7px;
 
-    margin: 40px 0;
+    margin:
+        40px
+        0;
+
 }
 
+
 .about p {
+
     max-width: 600px;
 
     color: #777;
@@ -690,38 +1263,74 @@ nav a:hover {
     line-height: 1.8;
 
     font-size: 15px;
+
 }
 
 
-/* CONTACT */
+
+/* =====================================================
+   CONTACT
+===================================================== */
 
 .contact {
-    padding: 150px 8%;
 
-    border-top: 1px solid #222;
+    padding:
+        150px
+        8%;
+
+    border-top:
+        1px solid
+        #222;
+
 }
 
+
 .contact-btn {
+
     background: transparent;
 
     color: white;
 
-    border: 1px solid #555;
+    border:
+        1px solid
+        #555;
 
-    padding: 18px 25px;
+    padding:
+        18px
+        25px;
 
     cursor: pointer;
 
     letter-spacing: 3px;
+
+    transition: 0.3s;
+
 }
 
 
-/* FOOTER */
+.contact-btn:hover {
+
+    background: #fff;
+
+    color: #000;
+
+}
+
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
 
 footer {
-    border-top: 1px solid #222;
 
-    padding: 30px 7%;
+    border-top:
+        1px solid
+        #222;
+
+    padding:
+        30px
+        7%;
 
     display: flex;
 
@@ -732,86 +1341,253 @@ footer {
     font-size: 10px;
 
     letter-spacing: 2px;
+
 }
 
 
-/* MOBILE */
+
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media (max-width: 800px) {
 
+
     header {
+
         height: 70px;
 
-        padding: 0 5%;
+        padding:
+            0
+            5%;
+
     }
+
 
     nav {
+
         display: none;
+
     }
+
 
     .hero {
+
         padding-left: 7%;
+
     }
+
 
     .hero h1 {
+
         letter-spacing: -5px;
+
     }
+
 
     .products {
+
         grid-template-columns: 1fr;
+
     }
+
 
     .product-visual {
+
         height: 400px;
+
     }
+
 
     .collection {
-        padding: 100px 6%;
+
+        padding:
+            100px
+            6%;
+
     }
+
 
     .section-heading h2 {
+
         letter-spacing: -4px;
+
     }
+
 
     .collection-title h3 {
+
         font-size: 38px;
+
     }
+
+
+    .listing-toolbar {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 20px;
+
+    }
+
+
+    .listing-controls {
+
+        display: grid;
+
+        grid-template-columns:
+            1fr
+            1fr;
+
+        justify-content: stretch;
+
+    }
+
+
+    .listing-controls select {
+
+        width: 100%;
+
+        padding:
+            12px
+            8px;
+
+        font-size: 8px;
+
+    }
+
+
+    .listing-count {
+
+        text-align: left;
+
+    }
+
 
     .department-card {
-        min-height: 140px;
+
+        min-height: 150px;
+
     }
 
+
     .department-card span {
+
         font-size: 65px;
 
         letter-spacing: -5px;
+
     }
+
 
     .department-card em {
+
         display: none;
+
     }
+
+
+    .department-card strong {
+
+        bottom: 20px;
+
+    }
+
 
     .department-title h2 {
+
         letter-spacing: -6px;
+
     }
+
 
     .category-nav {
+
         gap: 7px;
+
     }
 
-    .category-btn {
-        padding: 12px 14px;
+
+    .category-btn,
+    .category-button {
+
+        padding:
+            12px
+            14px;
+
     }
+
 
     .about h2,
     .contact h2 {
+
         letter-spacing: -4px;
+
     }
 
+
     footer {
+
         flex-direction: column;
 
         gap: 15px;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   SMALL PHONE
+===================================================== */
+
+@media (max-width: 420px) {
+
+
+    .listing-controls {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .listing-controls select {
+
+        width: 100%;
+
+    }
+
+
+    .product-bottom {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+
+    .product-actions {
+
+        width: 100%;
+
+    }
+
+
+    .product-actions button {
+
+        flex: 1;
+
+    }
+
+
+    .ffb-coming-soon h3 {
+
+        font-size: 40px;
+
     }
 
 }
