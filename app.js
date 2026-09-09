@@ -1,6 +1,7 @@
 /* =====================================================
    FUTURE FASHION BANGLADESH
    FINAL 3D HERO + TRIANGLES + DEPARTMENTS
+   (v2: category-reactive 3D object + swipe)
 ===================================================== */
 
 
@@ -138,14 +139,72 @@ if (!container) {
 
 
     /* =================================================
-       MAIN 3D MODEL
+       CATEGORY -> SHAPE / COLOR STYLE MAP
+
+       Each category gets its own geometry
+       (a distinct "future object") and its own
+       base neon hue. Swapping categories rebuilds
+       the geometry and re-tints the edges instead
+       of trying to morph one shape into another.
     ================================================= */
 
-    const geometry =
-        new THREE.IcosahedronGeometry(
-            1.7,
-            2
-        );
+    const categoryStyles = {
+
+        "HOODIE": {
+            build: function () {
+                return new THREE.IcosahedronGeometry(1.7, 2);
+            },
+            hue: 0.50 // cyan
+        },
+
+        "SHIRT": {
+            build: function () {
+                return new THREE.OctahedronGeometry(1.85, 0);
+            },
+            hue: 0.58 // blue
+        },
+
+        "T-SHIRT": {
+            build: function () {
+                return new THREE.TetrahedronGeometry(2.05, 0);
+            },
+            hue: 0.33 // green
+        },
+
+        "PANJABI": {
+            build: function () {
+                return new THREE.TorusKnotGeometry(1.05, 0.34, 140, 16);
+            },
+            hue: 0.78 // purple
+        },
+
+        "CAPS": {
+            build: function () {
+                return new THREE.IcosahedronGeometry(1.55, 0);
+            },
+            hue: 0.10 // amber
+        },
+
+        "BAGS": {
+            build: function () {
+                return new THREE.BoxGeometry(2.1, 2.1, 2.1, 2, 2, 2);
+            },
+            hue: 0.92 // pink/red
+        }
+
+    };
+
+
+    let currentCategory = "HOODIE";
+    let hueOffset = categoryStyles[currentCategory].hue;
+
+
+    /* =================================================
+       MAIN 3D MODEL (mutable geometry)
+    ================================================= */
+
+    let geometry =
+        categoryStyles[currentCategory].build();
 
 
     const material =
@@ -176,10 +235,10 @@ if (!container) {
 
 
     /* =================================================
-       NEON EDGES
+       NEON EDGES (mutable geometry)
     ================================================= */
 
-    const edgesGeometry =
+    let edgesGeometry =
         new THREE.EdgesGeometry(
             geometry
         );
@@ -209,17 +268,16 @@ if (!container) {
 
 
     /* =================================================
-       SECOND NEON EDGE
+       SECOND NEON EDGE (mutable geometry)
     ================================================= */
 
-    const secondGeometry =
-        new THREE.IcosahedronGeometry(
-            1.73,
-            2
-        );
+    let secondGeometry =
+        categoryStyles[currentCategory].build();
+
+    secondGeometry.scale(1.02, 1.02, 1.02);
 
 
-    const edgesGeometry2 =
+    let edgesGeometry2 =
         new THREE.EdgesGeometry(
             secondGeometry
         );
@@ -315,10 +373,6 @@ if (!container) {
 
     /* =================================================
        REMOVE ANY OLD WHITE PARTICLES
-       
-       No THREE.Points are created in this version.
-       This also removes accidental old particle
-       objects if they exist in the scene.
     ================================================= */
 
     scene.traverse(
@@ -341,6 +395,127 @@ if (!container) {
 
         }
     );
+
+
+
+    /* =================================================
+       CATEGORY SWAP + POP TRANSITION
+
+       Rotation never stops. Instead the object
+       briefly "collapses" and "reforms" into the
+       new category's shape/color.
+    ================================================= */
+
+    const transition = {
+
+        active: false,
+        start: 0,
+        duration: 480
+
+    };
+
+
+    function rebuildObjectGeometry(category) {
+
+        const style =
+            categoryStyles[category] ||
+            categoryStyles.HOODIE;
+
+
+        geometry.dispose();
+        edgesGeometry.dispose();
+        secondGeometry.dispose();
+        edgesGeometry2.dispose();
+
+
+        geometry =
+            style.build();
+
+        secondGeometry =
+            style.build();
+
+        secondGeometry.scale(
+            1.02,
+            1.02,
+            1.02
+        );
+
+
+        object.geometry =
+            geometry;
+
+        edgesGeometry =
+            new THREE.EdgesGeometry(
+                geometry
+            );
+
+        edges.geometry =
+            edgesGeometry;
+
+
+        edgesGeometry2 =
+            new THREE.EdgesGeometry(
+                secondGeometry
+            );
+
+        edges2.geometry =
+            edgesGeometry2;
+
+
+        hueOffset =
+            style.hue;
+
+        currentCategory =
+            category;
+
+
+        transition.active = true;
+        transition.start = performance.now();
+
+    }
+
+
+    function applyTransitionScale() {
+
+        if (!transition.active) {
+
+            return;
+
+        }
+
+
+        const elapsed =
+            performance.now() - transition.start;
+
+        const t =
+            Math.min(
+                elapsed / transition.duration,
+                1
+            );
+
+
+        // dips to ~0.7 at the midpoint, back to 1 at the end
+        const dip =
+            Math.sin(t * Math.PI) * 0.3;
+
+        const scale =
+            1 - dip;
+
+
+        object.scale.setScalar(
+            scale
+        );
+
+
+        if (t >= 1) {
+
+            object.scale.setScalar(1);
+
+            transition.active = false;
+
+        }
+
+    }
 
 
 
@@ -534,6 +709,15 @@ if (!container) {
         }
 
 
+        .ffb-triangle.active {
+
+            transform:
+                translate(-50%, -50%)
+                scale(1.18);
+
+        }
+
+
         .ffb-triangle-shape {
 
             position: absolute;
@@ -562,6 +746,20 @@ if (!container) {
                 drop-shadow(
                     0 0 12px #ff00ff
                 );
+
+        }
+
+
+        .ffb-triangle.active .ffb-triangle-shape {
+
+            filter:
+                drop-shadow(
+                    0 0 10px #00ffff
+                )
+                drop-shadow(
+                    0 0 20px #ff00ff
+                )
+                brightness(1.4);
 
         }
 
@@ -626,9 +824,6 @@ if (!container) {
 
         /* =============================================
            DESKTOP
-           
-           Triangles stay around the model,
-           INSIDE the ring area.
         ============================================= */
 
         .ffb-t1 {
@@ -810,6 +1005,109 @@ if (!container) {
 
 
     /* =================================================
+       ACTIVATE A CATEGORY
+
+       - swaps the 3D object's shape + color
+       - highlights the matching triangle
+       - opens the men department pre-filtered
+         to that category (categories currently
+         only have real products under "men")
+    ================================================= */
+
+    function setActiveTriangle(category) {
+
+        document
+            .querySelectorAll(".ffb-triangle")
+            .forEach(function(el) {
+
+                el.classList.remove("active");
+
+            });
+
+
+        const match =
+            triangleContainer.querySelector(
+                '[data-category="' + category + '"]'
+            );
+
+
+        if (match) {
+
+            match.classList.add("active");
+
+        }
+
+    }
+
+
+    function activateCategory(category) {
+
+        setActiveTriangle(category);
+
+        rebuildObjectGeometry(category);
+
+
+        if (typeof window.openDepartment === "function") {
+
+            window.openDepartment("men");
+
+
+            setTimeout(function() {
+
+                const nav =
+                    document.getElementById(
+                        "categoryNav"
+                    );
+
+
+                if (!nav) {
+
+                    return;
+
+                }
+
+
+                const wanted =
+                    normalizeCategory(category);
+
+
+                const buttons =
+                    Array.from(
+                        nav.querySelectorAll(
+                            ".category-btn"
+                        )
+                    );
+
+
+                const target =
+                    buttons.find(function(button) {
+
+                        return normalizeCategory(
+                            button.textContent
+                        ) === wanted;
+
+                    });
+
+
+                if (target) {
+
+                    target.click();
+
+                }
+
+            }, 150);
+
+        }
+
+    }
+
+
+    window.activateCategory =
+        activateCategory;
+
+
+
+    /* =================================================
        CREATE TRIANGLES
     ================================================= */
 
@@ -823,6 +1121,19 @@ if (!container) {
             triangle.className =
                 "ffb-triangle ffb-t" +
                 (index + 1);
+
+
+            triangle.dataset.category =
+                category;
+
+
+            if (index === 0) {
+
+                triangle.classList.add(
+                    "active"
+                );
+
+            }
 
 
             triangle.innerHTML = `
@@ -848,28 +1159,111 @@ if (!container) {
                 "click",
                 function() {
 
-                    /*
-                       Triangle click opens
-                       MEN collection because
-                       current products are mainly
-                       men's categories.
-                    */
-
-                    if (
-                        typeof window.openDepartment ===
-                        "function"
-                    ) {
-
-                        window.openDepartment(
-                            "men"
-                        );
-
-                    }
+                    activateCategory(
+                        category
+                    );
 
                 }
             );
 
         }
+    );
+
+
+
+    /* =================================================
+       SWIPE TO CYCLE CATEGORIES
+
+       Swiping left/right anywhere over the hero
+       3D area moves to the next/previous category,
+       same as clicking a triangle.
+    ================================================= */
+
+    let touchStartX = null;
+
+
+    container.addEventListener(
+        "touchstart",
+        function(event) {
+
+            if (
+                event.touches &&
+                event.touches.length
+            ) {
+
+                touchStartX =
+                    event.touches[0].clientX;
+
+            }
+
+        },
+        { passive: true }
+    );
+
+
+    container.addEventListener(
+        "touchend",
+        function(event) {
+
+            if (touchStartX === null) {
+
+                return;
+
+            }
+
+
+            const endX =
+                (event.changedTouches &&
+                event.changedTouches[0])
+                    ? event.changedTouches[0].clientX
+                    : touchStartX;
+
+
+            const delta =
+                endX - touchStartX;
+
+            const threshold =
+                45;
+
+
+            if (Math.abs(delta) > threshold) {
+
+                const currentIndex =
+                    categories.indexOf(
+                        currentCategory
+                    );
+
+
+                let nextIndex;
+
+
+                if (delta < 0) {
+
+                    nextIndex =
+                        (currentIndex + 1) %
+                        categories.length;
+
+                } else {
+
+                    nextIndex =
+                        (currentIndex - 1 +
+                        categories.length) %
+                        categories.length;
+
+                }
+
+
+                activateCategory(
+                    categories[nextIndex]
+                );
+
+            }
+
+
+            touchStartX = null;
+
+        },
+        { passive: true }
     );
 
 
@@ -897,7 +1291,7 @@ if (!container) {
 
 
     /* =================================================
-       TOUCH MOVEMENT
+       TOUCH MOVEMENT (for parallax on mobile)
     ================================================= */
 
     document.addEventListener(
@@ -942,7 +1336,7 @@ if (!container) {
         );
 
 
-        /* MODEL ROTATION */
+        /* MODEL ROTATION (never stops, even mid-swap) */
 
         object.rotation.x +=
             0.002;
@@ -983,6 +1377,12 @@ if (!container) {
 
 
 
+        /* CATEGORY SWAP POP */
+
+        applyTransitionScale();
+
+
+
         /* MODEL MOVEMENT */
 
         if (
@@ -1010,7 +1410,7 @@ if (!container) {
 
 
 
-        /* COLOR ANIMATION */
+        /* COLOR ANIMATION (tinted per active category) */
 
         const time =
             Date.now() *
@@ -1019,7 +1419,7 @@ if (!container) {
 
         edgesMaterial.color.setHSL(
 
-            (time * 0.35) % 1,
+            (time * 0.35 + hueOffset) % 1,
 
             1,
 
@@ -1030,7 +1430,7 @@ if (!container) {
 
         edgesMaterial2.color.setHSL(
 
-            (time * 0.35 + 0.5) % 1,
+            (time * 0.35 + hueOffset + 0.5) % 1,
 
             1,
 
@@ -1402,6 +1802,11 @@ window.openDepartment =
 
 /* =====================================================
    CATEGORY NAVIGATION
+
+   NOTE: className fixed to "category-btn" so it
+   actually matches the .category-btn rules in
+   style.css (it previously said "category-button",
+   which is not styled anywhere).
 ===================================================== */
 
 function createCategoryNav(
@@ -1437,7 +1842,7 @@ function createCategoryNav(
 
 
     allButton.className =
-        "category-button active";
+        "category-btn active";
 
 
     allButton.onclick =
@@ -1476,7 +1881,7 @@ function createCategoryNav(
 
 
             button.className =
-                "category-button";
+                "category-btn";
 
 
             button.onclick =
@@ -1517,7 +1922,7 @@ function setActiveCategory(
 ) {
 
     nav.querySelectorAll(
-        ".category-button"
+        ".category-btn"
     ).forEach(
         function(button) {
 
