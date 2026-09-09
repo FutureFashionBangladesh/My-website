@@ -1354,6 +1354,220 @@
 
 
 
+<!-- =====================================================
+     PRODUCT DETAIL MODAL
+     NEW — NOTHING ABOVE THIS SECTION WAS CHANGED
+===================================================== -->
+
+<div
+    id="productDetailModal"
+    class="product-detail-modal"
+>
+
+    <div class="product-detail-box">
+
+
+        <!-- CLOSE -->
+
+        <button
+            class="product-detail-close"
+            onclick="closeProductDetail()"
+        >
+            ×
+        </button>
+
+
+
+        <!-- PRODUCT IMAGE -->
+
+        <div class="product-detail-image">
+
+            <img
+                id="detailImage"
+                src=""
+                alt="Product"
+            >
+
+        </div>
+
+
+
+        <!-- PRODUCT INFORMATION -->
+
+        <div class="product-detail-info">
+
+
+            <div
+                class="detail-category"
+                id="detailCategory"
+            ></div>
+
+
+            <h2
+                id="detailName"
+            ></h2>
+
+
+            <div
+                class="detail-price"
+                id="detailPrice"
+            ></div>
+
+
+            <div class="detail-line"></div>
+
+
+
+            <!-- COLOR -->
+
+            <div class="detail-section">
+
+                <span>
+                    COLOR
+                </span>
+
+
+                <div
+                    id="detailColors"
+                    class="detail-options"
+                ></div>
+
+            </div>
+
+
+
+            <!-- SIZE -->
+
+            <div class="detail-section">
+
+                <span>
+                    SIZE
+                </span>
+
+
+                <div
+                    id="detailSizes"
+                    class="detail-options"
+                ></div>
+
+            </div>
+
+
+
+            <!-- STOCK -->
+
+            <div
+                class="detail-stock"
+                id="detailStock"
+            ></div>
+
+
+
+            <!-- QUANTITY -->
+
+            <div class="detail-section">
+
+                <span>
+                    QUANTITY
+                </span>
+
+
+                <div class="quantity-control">
+
+                    <button
+                        onclick="changeDetailQuantity(-1)"
+                    >
+                        −
+                    </button>
+
+
+                    <span
+                        id="detailQuantity"
+                    >
+                        1
+                    </span>
+
+
+                    <button
+                        onclick="changeDetailQuantity(1)"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ACTION BUTTONS -->
+
+            <div class="detail-buttons">
+
+                <button
+                    class="detail-cart-btn"
+                    onclick="detailAddToCart()"
+                >
+                    ADD TO CART
+                </button>
+
+
+                <button
+                    class="detail-buy-btn"
+                    onclick="detailBuyNow()"
+                >
+                    BUY NOW
+                </button>
+
+            </div>
+
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="detail-description">
+
+                <h3>
+                    DESCRIPTION
+                </h3>
+
+
+                <p
+                    id="detailDescription"
+                ></p>
+
+            </div>
+
+
+
+            <!-- MATERIAL -->
+
+            <div class="detail-description">
+
+                <h3>
+                    MATERIAL & CARE
+                </h3>
+
+
+                <p
+                    id="detailMaterial"
+                ></p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
 <script src="app.js?v=6"></script>
 
 
