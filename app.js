@@ -1,26 +1,24 @@
 /* =====================================================
    FUTURE FASHION BANGLADESH
-   FINAL 3D HERO + TRIANGLES + DEPARTMENTS
-   (v2: category-reactive 3D object + swipe)
+   3D HERO + TRIANGLES + PRODUCT SYSTEM
 ===================================================== */
 
 
 /* =====================================================
-   BASIC VARIABLES
+   3D HERO
 ===================================================== */
 
 const container =
-    document.getElementById("canvas-container");
+    document.getElementById(
+        "canvas-container"
+    );
+
 
 let mouseX = 0;
 let mouseY = 0;
 
 let cartCount = 0;
 
-
-/* =====================================================
-   THREE.JS
-===================================================== */
 
 if (!container) {
 
@@ -30,6 +28,7 @@ if (!container) {
 
 } else {
 
+
     const scene =
         new THREE.Scene();
 
@@ -38,7 +37,10 @@ if (!container) {
         new THREE.PerspectiveCamera(
             60,
             container.clientWidth /
-            Math.max(container.clientHeight, 1),
+            Math.max(
+                container.clientHeight,
+                1
+            ),
             0.1,
             1000
         );
@@ -46,8 +48,11 @@ if (!container) {
 
     const renderer =
         new THREE.WebGLRenderer({
+
             antialias: true,
+
             alpha: true
+
         });
 
 
@@ -74,11 +79,14 @@ if (!container) {
     renderer.domElement.style.display =
         "block";
 
+
     renderer.domElement.style.width =
         "100%";
 
+
     renderer.domElement.style.height =
         "100%";
+
 
     renderer.domElement.style.pointerEvents =
         "none";
@@ -89,9 +97,8 @@ if (!container) {
     );
 
 
-    /* =================================================
-       LIGHTS
-    ================================================= */
+
+    /* LIGHTS */
 
     scene.add(
         new THREE.AmbientLight(
@@ -138,73 +145,13 @@ if (!container) {
 
 
 
-    /* =================================================
-       CATEGORY -> SHAPE / COLOR STYLE MAP
+    /* MAIN MODEL */
 
-       Each category gets its own geometry
-       (a distinct "future object") and its own
-       base neon hue. Swapping categories rebuilds
-       the geometry and re-tints the edges instead
-       of trying to morph one shape into another.
-    ================================================= */
-
-    const categoryStyles = {
-
-        "HOODIE": {
-            build: function () {
-                return new THREE.IcosahedronGeometry(1.7, 2);
-            },
-            hue: 0.50 // cyan
-        },
-
-        "SHIRT": {
-            build: function () {
-                return new THREE.OctahedronGeometry(1.85, 0);
-            },
-            hue: 0.58 // blue
-        },
-
-        "T-SHIRT": {
-            build: function () {
-                return new THREE.TetrahedronGeometry(2.05, 0);
-            },
-            hue: 0.33 // green
-        },
-
-        "PANJABI": {
-            build: function () {
-                return new THREE.TorusKnotGeometry(1.05, 0.34, 140, 16);
-            },
-            hue: 0.78 // purple
-        },
-
-        "CAPS": {
-            build: function () {
-                return new THREE.IcosahedronGeometry(1.55, 0);
-            },
-            hue: 0.10 // amber
-        },
-
-        "BAGS": {
-            build: function () {
-                return new THREE.BoxGeometry(2.1, 2.1, 2.1, 2, 2, 2);
-            },
-            hue: 0.92 // pink/red
-        }
-
-    };
-
-
-    let currentCategory = "HOODIE";
-    let hueOffset = categoryStyles[currentCategory].hue;
-
-
-    /* =================================================
-       MAIN 3D MODEL (mutable geometry)
-    ================================================= */
-
-    let geometry =
-        categoryStyles[currentCategory].build();
+    const geometry =
+        new THREE.IcosahedronGeometry(
+            1.7,
+            2
+        );
 
 
     const material =
@@ -234,11 +181,9 @@ if (!container) {
 
 
 
-    /* =================================================
-       NEON EDGES (mutable geometry)
-    ================================================= */
+    /* CYAN EDGE */
 
-    let edgesGeometry =
+    const edgesGeometry =
         new THREE.EdgesGeometry(
             geometry
         );
@@ -267,17 +212,16 @@ if (!container) {
 
 
 
-    /* =================================================
-       SECOND NEON EDGE (mutable geometry)
-    ================================================= */
+    /* MAGENTA EDGE */
 
-    let secondGeometry =
-        categoryStyles[currentCategory].build();
+    const secondGeometry =
+        new THREE.IcosahedronGeometry(
+            1.73,
+            2
+        );
 
-    secondGeometry.scale(1.02, 1.02, 1.02);
 
-
-    let edgesGeometry2 =
+    const edgesGeometry2 =
         new THREE.EdgesGeometry(
             secondGeometry
         );
@@ -306,9 +250,7 @@ if (!container) {
 
 
 
-    /* =================================================
-       NEON RINGS
-    ================================================= */
+    /* RINGS */
 
     const ringGeometry =
         new THREE.TorusGeometry(
@@ -371,9 +313,7 @@ if (!container) {
 
 
 
-    /* =================================================
-       REMOVE ANY OLD WHITE PARTICLES
-    ================================================= */
+    /* NO PARTICLES */
 
     scene.traverse(
         function(child) {
@@ -398,130 +338,7 @@ if (!container) {
 
 
 
-    /* =================================================
-       CATEGORY SWAP + POP TRANSITION
-
-       Rotation never stops. Instead the object
-       briefly "collapses" and "reforms" into the
-       new category's shape/color.
-    ================================================= */
-
-    const transition = {
-
-        active: false,
-        start: 0,
-        duration: 480
-
-    };
-
-
-    function rebuildObjectGeometry(category) {
-
-        const style =
-            categoryStyles[category] ||
-            categoryStyles.HOODIE;
-
-
-        geometry.dispose();
-        edgesGeometry.dispose();
-        secondGeometry.dispose();
-        edgesGeometry2.dispose();
-
-
-        geometry =
-            style.build();
-
-        secondGeometry =
-            style.build();
-
-        secondGeometry.scale(
-            1.02,
-            1.02,
-            1.02
-        );
-
-
-        object.geometry =
-            geometry;
-
-        edgesGeometry =
-            new THREE.EdgesGeometry(
-                geometry
-            );
-
-        edges.geometry =
-            edgesGeometry;
-
-
-        edgesGeometry2 =
-            new THREE.EdgesGeometry(
-                secondGeometry
-            );
-
-        edges2.geometry =
-            edgesGeometry2;
-
-
-        hueOffset =
-            style.hue;
-
-        currentCategory =
-            category;
-
-
-        transition.active = true;
-        transition.start = performance.now();
-
-    }
-
-
-    function applyTransitionScale() {
-
-        if (!transition.active) {
-
-            return;
-
-        }
-
-
-        const elapsed =
-            performance.now() - transition.start;
-
-        const t =
-            Math.min(
-                elapsed / transition.duration,
-                1
-            );
-
-
-        // dips to ~0.7 at the midpoint, back to 1 at the end
-        const dip =
-            Math.sin(t * Math.PI) * 0.3;
-
-        const scale =
-            1 - dip;
-
-
-        object.scale.setScalar(
-            scale
-        );
-
-
-        if (t >= 1) {
-
-            object.scale.setScalar(1);
-
-            transition.active = false;
-
-        }
-
-    }
-
-
-
-    /* =================================================
-       RESPONSIVE MODEL POSITION
-    ================================================= */
+    /* MODEL POSITION */
 
     function updateModelPosition() {
 
@@ -555,7 +372,6 @@ if (!container) {
             ring2.position.y =
                 0;
 
-
         } else {
 
             camera.position.z =
@@ -574,14 +390,12 @@ if (!container) {
             ring1.position.x =
                 2;
 
-
             ring1.position.y =
                 0;
 
 
             ring2.position.x =
                 2;
-
 
             ring2.position.y =
                 0;
@@ -592,9 +406,7 @@ if (!container) {
 
 
 
-    /* =================================================
-       TRIANGLE CATEGORY SYSTEM
-    ================================================= */
+    /* TRIANGLE CATEGORIES */
 
     const categories = [
 
@@ -614,12 +426,10 @@ if (!container) {
 
 
 
-    /* =================================================
-       TRIANGLE CONTAINER
-    ================================================= */
-
     const triangleContainer =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     triangleContainer.id =
@@ -632,12 +442,12 @@ if (!container) {
 
 
 
-    /* =================================================
-       TRIANGLE CSS
-    ================================================= */
+    /* TRIANGLE CSS */
 
     const triangleStyle =
-        document.createElement("style");
+        document.createElement(
+            "style"
+        );
 
 
     triangleStyle.textContent = `
@@ -665,17 +475,19 @@ if (!container) {
 
             position: absolute;
 
-            width: clamp(
-                58px,
-                7vw,
-                105px
-            );
+            width:
+                clamp(
+                    58px,
+                    7vw,
+                    105px
+                );
 
-            height: clamp(
-                51px,
-                6.1vw,
-                92px
-            );
+            height:
+                clamp(
+                    51px,
+                    6.1vw,
+                    92px
+                );
 
             display: flex;
 
@@ -688,11 +500,17 @@ if (!container) {
             cursor: pointer;
 
             transform:
-                translate(-50%, -50%);
+                translate(
+                    -50%,
+                    -50%
+                );
 
             transition:
-                transform 0.3s ease,
-                filter 0.3s ease;
+                transform
+                0.3s ease,
+
+                filter
+                0.3s ease;
 
         }
 
@@ -700,20 +518,14 @@ if (!container) {
         .ffb-triangle:hover {
 
             transform:
-                translate(-50%, -50%)
+                translate(
+                    -50%,
+                    -50%
+                )
                 scale(1.10);
 
             filter:
                 brightness(1.35);
-
-        }
-
-
-        .ffb-triangle.active {
-
-            transform:
-                translate(-50%, -50%)
-                scale(1.18);
 
         }
 
@@ -746,20 +558,6 @@ if (!container) {
                 drop-shadow(
                     0 0 12px #ff00ff
                 );
-
-        }
-
-
-        .ffb-triangle.active .ffb-triangle-shape {
-
-            filter:
-                drop-shadow(
-                    0 0 10px #00ffff
-                )
-                drop-shadow(
-                    0 0 20px #ff00ff
-                )
-                brightness(1.4);
 
         }
 
@@ -800,11 +598,12 @@ if (!container) {
 
             color: #ffffff;
 
-            font-size: clamp(
-                6px,
-                0.62vw,
-                9px
-            );
+            font-size:
+                clamp(
+                    6px,
+                    0.62vw,
+                    9px
+                );
 
             font-weight: 800;
 
@@ -820,11 +619,6 @@ if (!container) {
 
         }
 
-
-
-        /* =============================================
-           DESKTOP
-        ============================================= */
 
         .ffb-t1 {
 
@@ -879,11 +673,6 @@ if (!container) {
 
         }
 
-
-
-        /* =============================================
-           MOBILE
-        ============================================= */
 
         @media (max-width: 800px) {
 
@@ -963,11 +752,6 @@ if (!container) {
         }
 
 
-
-        /* =============================================
-           SMALL PHONES
-        ============================================= */
-
         @media (max-width: 420px) {
 
             #triangle-category-container {
@@ -977,6 +761,7 @@ if (!container) {
 
             }
 
+
             .ffb-triangle {
 
                 width: 68px;
@@ -984,6 +769,7 @@ if (!container) {
                 height: 59px;
 
             }
+
 
             .ffb-triangle-name {
 
@@ -1004,136 +790,23 @@ if (!container) {
 
 
 
-    /* =================================================
-       ACTIVATE A CATEGORY
-
-       - swaps the 3D object's shape + color
-       - highlights the matching triangle
-       - opens the men department pre-filtered
-         to that category (categories currently
-         only have real products under "men")
-    ================================================= */
-
-    function setActiveTriangle(category) {
-
-        document
-            .querySelectorAll(".ffb-triangle")
-            .forEach(function(el) {
-
-                el.classList.remove("active");
-
-            });
-
-
-        const match =
-            triangleContainer.querySelector(
-                '[data-category="' + category + '"]'
-            );
-
-
-        if (match) {
-
-            match.classList.add("active");
-
-        }
-
-    }
-
-
-    function activateCategory(category) {
-
-        setActiveTriangle(category);
-
-        rebuildObjectGeometry(category);
-
-
-        if (typeof window.openDepartment === "function") {
-
-            window.openDepartment("men");
-
-
-            setTimeout(function() {
-
-                const nav =
-                    document.getElementById(
-                        "categoryNav"
-                    );
-
-
-                if (!nav) {
-
-                    return;
-
-                }
-
-
-                const wanted =
-                    normalizeCategory(category);
-
-
-                const buttons =
-                    Array.from(
-                        nav.querySelectorAll(
-                            ".category-btn"
-                        )
-                    );
-
-
-                const target =
-                    buttons.find(function(button) {
-
-                        return normalizeCategory(
-                            button.textContent
-                        ) === wanted;
-
-                    });
-
-
-                if (target) {
-
-                    target.click();
-
-                }
-
-            }, 150);
-
-        }
-
-    }
-
-
-    window.activateCategory =
-        activateCategory;
-
-
-
-    /* =================================================
-       CREATE TRIANGLES
-    ================================================= */
+    /* CREATE TRIANGLES */
 
     categories.forEach(
-        function(category, index) {
+        function(
+            category,
+            index
+        ) {
 
             const triangle =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
 
             triangle.className =
                 "ffb-triangle ffb-t" +
                 (index + 1);
-
-
-            triangle.dataset.category =
-                category;
-
-
-            if (index === 0) {
-
-                triangle.classList.add(
-                    "active"
-                );
-
-            }
 
 
             triangle.innerHTML = `
@@ -1144,7 +817,9 @@ if (!container) {
 
                 <div
                     class="ffb-triangle-name">
+
                     ${category}
+
                 </div>
 
             `;
@@ -1159,8 +834,8 @@ if (!container) {
                 "click",
                 function() {
 
-                    activateCategory(
-                        category
+                    openDepartment(
+                        "men"
                     );
 
                 }
@@ -1171,128 +846,31 @@ if (!container) {
 
 
 
-    /* =================================================
-       SWIPE TO CYCLE CATEGORIES
-
-       Swiping left/right anywhere over the hero
-       3D area moves to the next/previous category,
-       same as clicking a triangle.
-    ================================================= */
-
-    let touchStartX = null;
-
-
-    container.addEventListener(
-        "touchstart",
-        function(event) {
-
-            if (
-                event.touches &&
-                event.touches.length
-            ) {
-
-                touchStartX =
-                    event.touches[0].clientX;
-
-            }
-
-        },
-        { passive: true }
-    );
-
-
-    container.addEventListener(
-        "touchend",
-        function(event) {
-
-            if (touchStartX === null) {
-
-                return;
-
-            }
-
-
-            const endX =
-                (event.changedTouches &&
-                event.changedTouches[0])
-                    ? event.changedTouches[0].clientX
-                    : touchStartX;
-
-
-            const delta =
-                endX - touchStartX;
-
-            const threshold =
-                45;
-
-
-            if (Math.abs(delta) > threshold) {
-
-                const currentIndex =
-                    categories.indexOf(
-                        currentCategory
-                    );
-
-
-                let nextIndex;
-
-
-                if (delta < 0) {
-
-                    nextIndex =
-                        (currentIndex + 1) %
-                        categories.length;
-
-                } else {
-
-                    nextIndex =
-                        (currentIndex - 1 +
-                        categories.length) %
-                        categories.length;
-
-                }
-
-
-                activateCategory(
-                    categories[nextIndex]
-                );
-
-            }
-
-
-            touchStartX = null;
-
-        },
-        { passive: true }
-    );
-
-
-
-    /* =================================================
-       MOUSE MOVEMENT
-    ================================================= */
+    /* MOUSE */
 
     document.addEventListener(
         "mousemove",
         function(event) {
 
             mouseX =
-                (event.clientX /
-                window.innerWidth) * 2 - 1;
+                (
+                    event.clientX /
+                    window.innerWidth
+                ) * 2 - 1;
 
 
             mouseY =
-                (event.clientY /
-                window.innerHeight) * 2 - 1;
+                (
+                    event.clientY /
+                    window.innerHeight
+                ) * 2 - 1;
 
         }
     );
 
 
 
-    /* =================================================
-       TOUCH MOVEMENT (for parallax on mobile)
-    ================================================= */
+    /* TOUCH */
 
     document.addEventListener(
         "touchmove",
@@ -1309,13 +887,17 @@ if (!container) {
 
 
             mouseX =
-                (event.touches[0].clientX /
-                window.innerWidth) * 2 - 1;
+                (
+                    event.touches[0].clientX /
+                    window.innerWidth
+                ) * 2 - 1;
 
 
             mouseY =
-                (event.touches[0].clientY /
-                window.innerHeight) * 2 - 1;
+                (
+                    event.touches[0].clientY /
+                    window.innerHeight
+                ) * 2 - 1;
 
         },
         {
@@ -1325,9 +907,7 @@ if (!container) {
 
 
 
-    /* =================================================
-       ANIMATION
-    ================================================= */
+    /* ANIMATION */
 
     function animate() {
 
@@ -1336,8 +916,6 @@ if (!container) {
         );
 
 
-        /* MODEL ROTATION (never stops, even mid-swap) */
-
         object.rotation.x +=
             0.002;
 
@@ -1345,9 +923,6 @@ if (!container) {
         object.rotation.y +=
             0.004;
 
-
-
-        /* EDGE ROTATION */
 
         edges.rotation.x -=
             0.001;
@@ -1365,9 +940,6 @@ if (!container) {
             0.0015;
 
 
-
-        /* RING ROTATION */
-
         ring1.rotation.z +=
             0.003;
 
@@ -1376,14 +948,6 @@ if (!container) {
             0.002;
 
 
-
-        /* CATEGORY SWAP POP */
-
-        applyTransitionScale();
-
-
-
-        /* MODEL MOVEMENT */
 
         if (
             window.innerWidth > 800
@@ -1410,34 +974,23 @@ if (!container) {
 
 
 
-        /* COLOR ANIMATION (tinted per active category) */
-
         const time =
             Date.now() *
             0.0002;
 
 
         edgesMaterial.color.setHSL(
-
-            (time * 0.35 + hueOffset) % 1,
-
+            (time * 0.35) % 1,
             1,
-
             0.55
-
         );
 
 
         edgesMaterial2.color.setHSL(
-
-            (time * 0.35 + hueOffset + 0.5) % 1,
-
+            (time * 0.35 + 0.5) % 1,
             1,
-
             0.55
-
         );
-
 
 
         renderer.render(
@@ -1449,9 +1002,7 @@ if (!container) {
 
 
 
-    /* =================================================
-       RESPONSIVE RESIZE
-    ================================================= */
+    /* RESIZE */
 
     function resize() {
 
@@ -1493,11 +1044,6 @@ if (!container) {
     );
 
 
-
-    /* =================================================
-       INITIALIZE
-    ================================================= */
-
     updateModelPosition();
 
     resize();
@@ -1531,6 +1077,57 @@ window.addToCart =
 
         }
 
+
+        alert(
+            "PRODUCT ADDED TO CART"
+        );
+
+    };
+
+
+
+window.openCart =
+    function() {
+
+        if (cartCount === 0) {
+
+            alert(
+                "YOUR CART IS EMPTY"
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "CART: " +
+            cartCount +
+            " ITEM(S)"
+        );
+
+    };
+
+
+
+window.buyNow =
+    function() {
+
+        alert(
+            "CHECKOUT SYSTEM COMING NEXT"
+        );
+
+    };
+
+
+
+window.contactFFB =
+    function() {
+
+        alert(
+            "CONTACT SYSTEM COMING NEXT"
+        );
+
     };
 
 
@@ -1543,9 +1140,11 @@ const departmentData = {
 
     men: {
 
-        number: "01 / MEN",
+        number:
+            "01 / MEN",
 
-        name: "MEN",
+        name:
+            "MEN",
 
         description:
             "FUTURE MENSWEAR",
@@ -1567,9 +1166,11 @@ const departmentData = {
 
     women: {
 
-        number: "02 / WOMEN",
+        number:
+            "02 / WOMEN",
 
-        name: "WOMEN",
+        name:
+            "WOMEN",
 
         description:
             "FUTURE WOMENSWEAR",
@@ -1592,9 +1193,11 @@ const departmentData = {
 
     kids: {
 
-        number: "03 / KIDS",
+        number:
+            "03 / KIDS",
 
-        name: "KIDS",
+        name:
+            "KIDS",
 
         description:
             "FUTURE KIDSWEAR",
@@ -1619,7 +1222,7 @@ const departmentData = {
 
 
 /* =====================================================
-   CATEGORY NORMALIZATION
+   CATEGORY NORMALIZER
 ===================================================== */
 
 function normalizeCategory(
@@ -1634,41 +1237,848 @@ function normalizeCategory(
 
     const map = {
 
-        "T-SHIRT": "tshirt",
+        "T-SHIRT":
+            "tshirt",
 
-        "TSHIRT": "tshirt",
+        "TSHIRT":
+            "tshirt",
 
-        "HOODIE": "hoodie",
+        "HOODIE":
+            "hoodie",
 
-        "SHIRT": "shirt",
+        "SHIRT":
+            "shirt",
 
-        "PANJABI": "panjabi",
+        "PANJABI":
+            "panjabi",
 
-        "CAPS": "caps",
+        "CAPS":
+            "caps",
 
-        "CAP": "caps",
+        "CAP":
+            "caps",
 
-        "BAGS": "bags",
+        "BAGS":
+            "bags",
 
-        "BAG": "bags",
+        "BAG":
+            "bags",
 
-        "PANTS": "pants",
+        "PANTS":
+            "pants",
 
-        "PANTS / CARGO": "pants",
+        "PANTS / CARGO":
+            "pants",
 
-        "CARGO": "pants",
+        "CARGO":
+            "pants",
 
-        "DRESS": "dress",
+        "DRESS":
+            "dress",
 
-        "TOP": "top",
+        "TOP":
+            "top",
 
-        "KURTI": "kurti"
+        "KURTI":
+            "kurti"
 
     };
 
 
-    return map[value] ||
-        value.toLowerCase();
+    return (
+        map[value] ||
+        value.toLowerCase()
+    );
+
+}
+
+
+
+/* =====================================================
+   STORE PRODUCTS
+===================================================== */
+
+function getProducts() {
+
+    return Array.from(
+        document.querySelectorAll(
+            "#productGrid .product-card"
+        )
+    );
+
+}
+
+
+
+/* =====================================================
+   FILTER CHECK
+===================================================== */
+
+function productMatchesFilters(
+    product,
+    prefix = ""
+) {
+
+    const colorElement =
+        document.getElementById(
+            prefix +
+            "colorFilter"
+        );
+
+
+    const sizeElement =
+        document.getElementById(
+            prefix +
+            "sizeFilter"
+        );
+
+
+    const priceElement =
+        document.getElementById(
+            prefix +
+            "priceFilter"
+        );
+
+
+    const selectedColor =
+        colorElement
+        ? colorElement.value
+        : "all";
+
+
+    const selectedSize =
+        sizeElement
+        ? sizeElement.value
+        : "all";
+
+
+    const selectedPrice =
+        priceElement
+        ? priceElement.value
+        : "all";
+
+
+
+    /* COLOR */
+
+    if (
+        selectedColor !== "all"
+    ) {
+
+        const colors =
+            String(
+                product.dataset.colors ||
+                ""
+            )
+            .toLowerCase()
+            .split(",");
+
+
+        if (
+            !colors.includes(
+                selectedColor
+            )
+        ) {
+
+            return false;
+
+        }
+
+    }
+
+
+
+    /* SIZE */
+
+    if (
+        selectedSize !== "all"
+    ) {
+
+        const sizes =
+            String(
+                product.dataset.sizes ||
+                ""
+            )
+            .toLowerCase()
+            .split(",");
+
+
+        if (
+            !sizes.includes(
+                selectedSize
+            )
+        ) {
+
+            return false;
+
+        }
+
+    }
+
+
+
+    /* PRICE */
+
+    const price =
+        Number(
+            product.dataset.price ||
+            0
+        );
+
+
+
+    if (
+        selectedPrice ===
+        "0-1500"
+        &&
+        price > 1500
+    ) {
+
+        return false;
+
+    }
+
+
+    if (
+        selectedPrice ===
+        "1500-2500"
+        &&
+        (
+            price <= 1500 ||
+            price > 2500
+        )
+    ) {
+
+        return false;
+
+    }
+
+
+    if (
+        selectedPrice ===
+        "2500-5000"
+        &&
+        (
+            price <= 2500 ||
+            price > 5000
+        )
+    ) {
+
+        return false;
+
+    }
+
+
+    if (
+        selectedPrice ===
+        "5000+"
+        &&
+        price <= 5000
+    ) {
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+
+/* =====================================================
+   SORT PRODUCTS
+===================================================== */
+
+function sortProducts(
+    products,
+    sortValue
+) {
+
+    if (
+        sortValue === "low"
+    ) {
+
+        products.sort(
+            function(a, b) {
+
+                return (
+                    Number(
+                        a.dataset.price
+                    ) -
+                    Number(
+                        b.dataset.price
+                    )
+                );
+
+            }
+        );
+
+    }
+
+
+    if (
+        sortValue === "high"
+    ) {
+
+        products.sort(
+            function(a, b) {
+
+                return (
+                    Number(
+                        b.dataset.price
+                    ) -
+                    Number(
+                        a.dataset.price
+                    )
+                );
+
+            }
+        );
+
+    }
+
+
+    return products;
+
+}
+
+
+
+/* =====================================================
+   RESET DEPARTMENT FILTERS
+===================================================== */
+
+function resetDepartmentFilters() {
+
+    const values = {
+
+        colorFilter:
+            "all",
+
+        sizeFilter:
+            "all",
+
+        priceFilter:
+            "all",
+
+        sortProducts:
+            "default"
+
+    };
+
+
+    Object.keys(values)
+    .forEach(
+        function(id) {
+
+            const element =
+                document.getElementById(
+                    id
+                );
+
+
+            if (element) {
+
+                element.value =
+                    values[id];
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   RESET ALL PRODUCTS FILTERS
+===================================================== */
+
+function resetAllFilters() {
+
+    const values = {
+
+        allColorFilter:
+            "all",
+
+        allSizeFilter:
+            "all",
+
+        allPriceFilter:
+            "all",
+
+        allSortProducts:
+            "default"
+
+    };
+
+
+    Object.keys(values)
+    .forEach(
+        function(id) {
+
+            const element =
+                document.getElementById(
+                    id
+                );
+
+
+            if (element) {
+
+                element.value =
+                    values[id];
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   ALL PRODUCT LISTING
+===================================================== */
+
+function refreshAllProducts() {
+
+    const grid =
+        document.getElementById(
+            "productGrid"
+        );
+
+
+    if (!grid) {
+        return;
+    }
+
+
+    const originalProducts =
+        getProducts();
+
+
+    let products =
+        originalProducts.filter(
+            function(product) {
+
+                return productMatchesFilters(
+                    product,
+                    "all"
+                );
+
+            }
+        );
+
+
+    const sort =
+        document.getElementById(
+            "allSortProducts"
+        );
+
+
+    const sortValue =
+        sort
+        ? sort.value
+        : "default";
+
+
+    products =
+        sortProducts(
+            products,
+            sortValue
+        );
+
+
+    grid.innerHTML = "";
+
+
+    products.forEach(
+        function(product) {
+
+            grid.appendChild(
+                product.cloneNode(
+                    true
+                )
+            );
+
+        }
+    );
+
+
+    const count =
+        document.getElementById(
+            "allProductCount"
+        );
+
+
+    if (count) {
+
+        count.textContent =
+            products.length;
+
+    }
+
+
+    if (!products.length) {
+
+        grid.innerHTML = `
+
+            <div class="ffb-coming-soon">
+
+                <span>
+                    NO PRODUCTS FOUND
+                </span>
+
+                <h3>
+                    TRY AGAIN
+                </h3>
+
+                <p>
+                    CHANGE YOUR FILTERS
+                    TO SEE MORE PRODUCTS.
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   CATEGORY NAV
+===================================================== */
+
+function createCategoryNav(
+    department,
+    categories
+) {
+
+    const nav =
+        document.getElementById(
+            "categoryNav"
+        );
+
+
+    if (!nav) {
+        return;
+    }
+
+
+    nav.innerHTML = "";
+
+
+
+    /* ALL */
+
+    const allButton =
+        document.createElement(
+            "button"
+        );
+
+
+    allButton.textContent =
+        "ALL";
+
+
+    allButton.className =
+        "category-btn active";
+
+
+    allButton.onclick =
+        function() {
+
+            nav
+                .querySelectorAll(
+                    ".category-btn"
+                )
+                .forEach(
+                    function(button) {
+
+                        button.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+            allButton.classList.add(
+                "active"
+            );
+
+
+            currentCategory =
+                "all";
+
+
+            refreshDepartmentProducts();
+
+        };
+
+
+    nav.appendChild(
+        allButton
+    );
+
+
+
+    /* CATEGORIES */
+
+    categories.forEach(
+        function(category) {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.textContent =
+                category;
+
+
+            button.className =
+                "category-btn";
+
+
+            button.onclick =
+                function() {
+
+                    nav
+                        .querySelectorAll(
+                            ".category-btn"
+                        )
+                        .forEach(
+                            function(btn) {
+
+                                btn.classList.remove(
+                                    "active"
+                                );
+
+                            }
+                        );
+
+
+                    button.classList.add(
+                        "active"
+                    );
+
+
+                    currentCategory =
+                        category;
+
+
+                    refreshDepartmentProducts();
+
+                };
+
+
+            nav.appendChild(
+                button
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   CURRENT DEPARTMENT / CATEGORY
+===================================================== */
+
+let currentDepartment =
+    "all";
+
+
+let currentCategory =
+    "all";
+
+
+
+/* =====================================================
+   REFRESH DEPARTMENT PRODUCTS
+===================================================== */
+
+function refreshDepartmentProducts() {
+
+    const target =
+        document.getElementById(
+            "departmentProducts"
+        );
+
+
+    if (!target) {
+        return;
+    }
+
+
+    let products =
+        getProducts();
+
+
+    /* DEPARTMENT */
+
+    if (
+        currentDepartment !==
+        "all"
+    ) {
+
+        products =
+            products.filter(
+                function(product) {
+
+                    return (
+                        product.dataset.department ===
+                        currentDepartment
+                    );
+
+                }
+            );
+
+    }
+
+
+
+    /* CATEGORY */
+
+    if (
+        currentCategory !==
+        "all"
+    ) {
+
+        const wanted =
+            normalizeCategory(
+                currentCategory
+            );
+
+
+        products =
+            products.filter(
+                function(product) {
+
+                    return (
+                        normalizeCategory(
+                            product.dataset.category
+                        ) ===
+                        wanted
+                    );
+
+                }
+            );
+
+    }
+
+
+
+    /* FILTER */
+
+    products =
+        products.filter(
+            function(product) {
+
+                return productMatchesFilters(
+                    product
+                );
+
+            }
+        );
+
+
+
+    /* SORT */
+
+    const sort =
+        document.getElementById(
+            "sortProducts"
+        );
+
+
+    const sortValue =
+        sort
+        ? sort.value
+        : "default";
+
+
+    products =
+        sortProducts(
+            products,
+            sortValue
+        );
+
+
+
+    target.innerHTML =
+        "";
+
+
+
+    products.forEach(
+        function(product) {
+
+            target.appendChild(
+                product.cloneNode(
+                    true
+                )
+            );
+
+        }
+    );
+
+
+
+    const count =
+        document.getElementById(
+            "productCount"
+        );
+
+
+    if (count) {
+
+        count.textContent =
+            products.length;
+
+    }
+
+
+
+    if (!products.length) {
+
+        target.innerHTML = `
+
+            <div class="ffb-coming-soon">
+
+                <span>
+                    COMING SOON
+                </span>
+
+                <h3>
+                    ${String(
+                        currentCategory === "all"
+                        ? currentDepartment
+                        : currentCategory
+                    ).toUpperCase()}
+                </h3>
+
+                <p>
+                    FUTURE COLLECTION
+                    IS BEING PREPARED.
+                </p>
+
+            </div>
+
+        `;
+
+    }
 
 }
 
@@ -1688,10 +2098,16 @@ window.openDepartment =
 
 
         if (!data) {
-
             return;
-
         }
+
+
+        currentDepartment =
+            department;
+
+
+        currentCategory =
+            "all";
 
 
         const all =
@@ -1720,6 +2136,7 @@ window.openDepartment =
                 "block";
 
         }
+
 
 
         const number =
@@ -1764,15 +2181,18 @@ window.openDepartment =
         }
 
 
+
+        resetDepartmentFilters();
+
+
         createCategoryNav(
             department,
             data.categories
         );
 
 
-        showDepartmentProducts(
-            department
-        );
+        refreshDepartmentProducts();
+
 
 
         if (view) {
@@ -1801,361 +2221,19 @@ window.openDepartment =
 
 
 /* =====================================================
-   CATEGORY NAVIGATION
-
-   NOTE: className fixed to "category-btn" so it
-   actually matches the .category-btn rules in
-   style.css (it previously said "category-button",
-   which is not styled anywhere).
-===================================================== */
-
-function createCategoryNav(
-    department,
-    categories
-) {
-
-    const nav =
-        document.getElementById(
-            "categoryNav"
-        );
-
-
-    if (!nav) {
-
-        return;
-
-    }
-
-
-    nav.innerHTML = "";
-
-
-
-    const allButton =
-        document.createElement(
-            "button"
-        );
-
-
-    allButton.textContent =
-        "ALL";
-
-
-    allButton.className =
-        "category-btn active";
-
-
-    allButton.onclick =
-        function() {
-
-            setActiveCategory(
-                nav,
-                allButton
-            );
-
-
-            showDepartmentProducts(
-                department
-            );
-
-        };
-
-
-    nav.appendChild(
-        allButton
-    );
-
-
-
-    categories.forEach(
-        function(category) {
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-
-            button.textContent =
-                category;
-
-
-            button.className =
-                "category-btn";
-
-
-            button.onclick =
-                function() {
-
-                    setActiveCategory(
-                        nav,
-                        button
-                    );
-
-
-                    showCategoryProducts(
-                        department,
-                        category
-                    );
-
-                };
-
-
-            nav.appendChild(
-                button
-            );
-
-        }
-    );
-
-}
-
-
-
-/* =====================================================
-   ACTIVE CATEGORY
-===================================================== */
-
-function setActiveCategory(
-    nav,
-    active
-) {
-
-    nav.querySelectorAll(
-        ".category-btn"
-    ).forEach(
-        function(button) {
-
-            button.classList.remove(
-                "active"
-            );
-
-        }
-    );
-
-
-    active.classList.add(
-        "active"
-    );
-
-}
-
-
-
-/* =====================================================
-   GET ORIGINAL PRODUCTS
-===================================================== */
-
-function getProducts() {
-
-    return Array.from(
-        document.querySelectorAll(
-            "#productGrid .product-card"
-        )
-    );
-
-}
-
-
-
-/* =====================================================
-   SHOW DEPARTMENT PRODUCTS
-===================================================== */
-
-function showDepartmentProducts(
-    department
-) {
-
-    const target =
-        document.getElementById(
-            "departmentProducts"
-        );
-
-
-    if (!target) {
-
-        return;
-
-    }
-
-
-    target.innerHTML = "";
-
-
-    let found = 0;
-
-
-    getProducts().forEach(
-        function(product) {
-
-            if (
-                product.dataset.department ===
-                department
-            ) {
-
-                const clone =
-                    product.cloneNode(
-                        true
-                    );
-
-
-                target.appendChild(
-                    clone
-                );
-
-
-                found++;
-
-            }
-
-        }
-    );
-
-
-    if (!found) {
-
-        showComingSoon(
-            target,
-            department
-        );
-
-    }
-
-}
-
-
-
-/* =====================================================
-   SHOW CATEGORY PRODUCTS
-===================================================== */
-
-function showCategoryProducts(
-    department,
-    category
-) {
-
-    const target =
-        document.getElementById(
-            "departmentProducts"
-        );
-
-
-    if (!target) {
-
-        return;
-
-    }
-
-
-    target.innerHTML = "";
-
-
-    let found = 0;
-
-
-    const wanted =
-        normalizeCategory(
-            category
-        );
-
-
-    getProducts().forEach(
-        function(product) {
-
-            const productDepartment =
-                product.dataset.department;
-
-
-            const productCategory =
-                normalizeCategory(
-                    product.dataset.category
-                );
-
-
-            if (
-
-                productDepartment ===
-                department
-
-                &&
-
-                productCategory ===
-                wanted
-
-            ) {
-
-                const clone =
-                    product.cloneNode(
-                        true
-                    );
-
-
-                target.appendChild(
-                    clone
-                );
-
-
-                found++;
-
-            }
-
-        }
-    );
-
-
-    if (!found) {
-
-        showComingSoon(
-            target,
-            category
-        );
-
-    }
-
-}
-
-
-
-/* =====================================================
-   COMING SOON
-===================================================== */
-
-function showComingSoon(
-    target,
-    name
-) {
-
-    target.innerHTML = `
-
-        <div class="ffb-coming-soon">
-
-            <span>
-                COMING SOON
-            </span>
-
-            <h3>
-                ${String(name).toUpperCase()}
-            </h3>
-
-            <p>
-                FUTURE COLLECTION
-                IS BEING PREPARED.
-            </p>
-
-        </div>
-
-    `;
-
-}
-
-
-
-/* =====================================================
    SHOW ALL PRODUCTS
 ===================================================== */
 
 window.showAllProducts =
     function() {
+
+        currentDepartment =
+            "all";
+
+
+        currentCategory =
+            "all";
+
 
         const all =
             document.getElementById(
@@ -2185,6 +2263,12 @@ window.showAllProducts =
         }
 
 
+        resetAllFilters();
+
+
+        refreshAllProducts();
+
+
         const collection =
             document.getElementById(
                 "collection"
@@ -2210,51 +2294,105 @@ window.showAllProducts =
 
 
 /* =====================================================
-   FORCE COMING SOON ON DEPARTMENT CARDS
+   FILTER EVENTS
+===================================================== */
+
+function setupFilterEvents() {
+
+
+    const allFilterIds = [
+
+        "allColorFilter",
+
+        "allSizeFilter",
+
+        "allPriceFilter",
+
+        "allSortProducts"
+
+    ];
+
+
+    allFilterIds.forEach(
+        function(id) {
+
+            const element =
+                document.getElementById(
+                    id
+                );
+
+
+            if (element) {
+
+                element.addEventListener(
+                    "change",
+                    function() {
+
+                        refreshAllProducts();
+
+                    }
+                );
+
+            }
+
+        }
+    );
+
+
+
+    const departmentFilterIds = [
+
+        "colorFilter",
+
+        "sizeFilter",
+
+        "priceFilter",
+
+        "sortProducts"
+
+    ];
+
+
+    departmentFilterIds.forEach(
+        function(id) {
+
+            const element =
+                document.getElementById(
+                    id
+                );
+
+
+            if (element) {
+
+                element.addEventListener(
+                    "change",
+                    function() {
+
+                        refreshDepartmentProducts();
+
+                    }
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   INITIALIZE
 ===================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
     function() {
 
-        document
-            .querySelectorAll(
-                ".department-card"
-            )
-            .forEach(
-                function(card) {
+        setupFilterEvents();
 
-                    if (
-                        !card.querySelector(
-                            ".department-coming-soon"
-                        )
-                    ) {
-
-                        const text =
-                            document.createElement(
-                                "strong"
-                            );
-
-
-                        text.className =
-                            "department-coming-soon";
-
-
-                        text.textContent =
-                            "COMING SOON";
-
-
-                        card.insertBefore(
-                            text,
-                            card.querySelector(
-                                "em"
-                            )
-                        );
-
-                    }
-
-                }
-            );
+        refreshAllProducts();
 
     }
 );
